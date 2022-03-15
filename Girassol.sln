@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.32210.238
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.32126.315
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Girassal.Web", "Girassal.Web\Girassal.Web.csproj", "{D121D7C8-66D3-4D6E-B10B-4C36091E995E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Girassol.Web", "Girassal.Web\Girassol.Web.csproj", "{D121D7C8-66D3-4D6E-B10B-4C36091E995E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Girassal.Models", "Girassal.Models\Girassal.Models.csproj", "{E9C18DD5-A486-496C-AD7D-846ECDDBF463}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Girassol.Models", "Girassal.Models\Girassol.Models.csproj", "{E9C18DD5-A486-496C-AD7D-846ECDDBF463}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Girassal.Data", "Girassal.Data\Girassal.Data.csproj", "{E654FEC1-0F9D-49F2-90F1-DCB561E9E79B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Girassol.Data", "Girassal.Data\Girassol.Data.csproj", "{E654FEC1-0F9D-49F2-90F1-DCB561E9E79B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Girassal.Services", "Girassal.Services\Girassal.Services.csproj", "{F2B4EFAB-EA94-484B-B546-E1FF27D77518}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Girassol.Services", "Girassal.Services\Girassol.Services.csproj", "{F2B4EFAB-EA94-484B-B546-E1FF27D77518}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
