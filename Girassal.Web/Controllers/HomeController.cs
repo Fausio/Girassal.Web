@@ -1,4 +1,4 @@
-﻿using Girassal.Web.Models;
+﻿using Girassol.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;

@@ -16,4 +16,10 @@
     <Folder Include="wwwroot\pro\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Girassal.Data\Girassol.Data.csproj" />
+    <ProjectReference Include="..\Girassal.Models\Girassol.Models.csproj" />
+    <ProjectReference Include="..\Girassal.Services\Girassol.Services.csproj" />
+  </ItemGroup>
+
 </Project>
