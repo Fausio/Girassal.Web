@@ -1,4 +1,5 @@
-﻿using Girassol.Models;
+﻿using Girassol.Data.Seeds;
+using Girassol.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -15,6 +16,7 @@ namespace Girassal.Web.Controllers
 
         public HomeController(ILogger<HomeController> logger)
         {
+       
             _logger = logger;
         }
 
