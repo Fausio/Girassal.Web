@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Girassal.Web.Data
+namespace Girassal.Data.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

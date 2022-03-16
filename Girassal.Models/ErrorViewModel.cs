@@ -1,7 +1,7 @@
 using System;
 
-namespace Girassal.Web.Models
-{
+namespace Girassol.Models
+
     public class ErrorViewModel
     {
         public string RequestId { get; set; }
