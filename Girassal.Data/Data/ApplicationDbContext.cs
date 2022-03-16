@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Girassol.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,19 @@ namespace Girassal.Data.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
         }
+
+        public ApplicationDbContext()
+        {
+
+        }
+
+
+        public DbSet<SimpleEntity> simpleEntitie { get; set; }
+        public DbSet<Invoice> GetInvoice { get; set; } 
+        public DbSet<Client> Client { get; set; }
+
     }
 }
