@@ -1,5 +1,6 @@
 ﻿using Girassol.Data.Seeds;
 using Girassol.Models;
+using Girassol.Models.DTO.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -20,9 +21,9 @@ namespace Girassal.Web.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(new DashBoardViewModel() );
         }
 
         public IActionResult Privacy()

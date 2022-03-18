@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Girassol.Models.DTO.ViewModels
 {
-    public class InvoiceCreateOrEdiViewModel : Invoice
+    public class DashBoardViewModel
     {
 
+        // others props
 
+        public InvoiceCreateOrEdiViewModel NewInvoice { get; set; }
     }
 }
