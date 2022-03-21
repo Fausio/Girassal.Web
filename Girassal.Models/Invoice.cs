@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -9,17 +10,19 @@ namespace Girassol.Models
 {
     [Table("Invoice")]
     public class Invoice : common
-    {
-        public Invoice()
-        {
-            this.Clothings = new List<Clothing>();
-        }
-        public List<Clothing> Clothings { get; set; }
-
+    { 
+        public Clothing  Clothings { get; set; } 
         public Client Client { get; set; }
         public int? ClientId { get; set; }
 
+        [Display(Name = "Data de Entrada")] 
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:MM}")]
         public DateTime EntryDate { get; set; }
-         
+
+        [Display(Name = "Preço")]
+        public Decimal Price { get; set; }
+
+        [Display(Name = "Preço com IVA")]
+        public Decimal PriceWithIva { get; set; }
     }
 }

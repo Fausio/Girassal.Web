@@ -8,9 +8,7 @@ namespace Girassol.Models.DTO.ViewModels
 {
     public class DashBoardViewModel
     {
+        public InvoiceCreateOrEdiViewModel NewInvoice = new InvoiceCreateOrEdiViewModel();
 
-        // others props
-
-        public InvoiceCreateOrEdiViewModel NewInvoice { get; set; }
     }
 }

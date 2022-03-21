@@ -22,8 +22,8 @@ namespace Girassal.Web.Controllers
         }
 
         public async Task<IActionResult> Index()
-        {
-            return View(new DashBoardViewModel() );
+        { 
+            return View(new DashBoardViewModel());
         }
 
         public IActionResult Privacy()
