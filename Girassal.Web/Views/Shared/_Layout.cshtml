@@ -112,9 +112,11 @@
     <script src="~/pro/dist/assets/js/pages/dashboard.js"></script>
     <script src="~/pro/dist/assets/js/mazer.js"></script>
 
-    @await RenderSectionAsync("Scripts", required: false)
+    @*  @await RenderSectionAsync("Scripts", required: false)*@
 
-     
+    @RenderSection("scripts", required: false)
+
+
 </body>
 
 </html>

@@ -91,7 +91,7 @@
                                             <div class="col-12">
                                                 <div class='form-check'>
                                                     <div class="checkbox mt-2">
-                                                        <input name="my_checkbox" type="checkbox" id="my_checkbox" class='form-check-input'>
+                                                        <input asp-for="@Model.showClientForm" name="my_checkbox" type="checkbox" onclick="SeeClientFilds();" id="my_checkbox" class='form-check-input'>
                                                         <label for="my_checkbox">Emitir com NUIT do Cliente</label>
                                                     </div>
                                                 </div>
@@ -131,9 +131,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-
-
-
+                                             
                                             <div class="col-12 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Emitir e Gravar</button>
                                                 <button type="reset"
@@ -144,12 +142,7 @@
                                         </div>
                                     </div>
                                 </form>
-
-
-
-
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -158,4 +151,23 @@
     </div>
 </div>
 
- 
+
+
+
+<script>
+
+    var model = "@Model.showClientForm";
+
+    var x = document.getElementById("my_checkbox");
+    var value = x.attr("value");
+
+    function SeeClientFilds() {
+
+        alert(model);
+
+    }
+
+
+</script>
+
+

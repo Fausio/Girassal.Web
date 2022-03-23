@@ -8,7 +8,7 @@ namespace Girassol.Models.DTO.ViewModels
 {
     public class InvoiceCreateOrEdiViewModel : Invoice
     {
-
+      public  bool showClientForm { get; set; }
 
     }
 }
