@@ -9,10 +9,15 @@ using System.Threading.Tasks;
 namespace Girassol.Models
 {
     [Table("Client")]
+
+    // status
+    // 1 cliente of db 
+    // 0 hard coded client
     public  class Client : common
     {
         [Display(Name = "Nome Do Cliente")]
         public string Name  { get; set; }
-        public string Nuit { get; set; }
+        public string Nuit { get; set; } 
+       
     }
 }

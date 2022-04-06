@@ -1,6 +1,8 @@
 using Girassal.Data;
 using Girassal.Data.Data;
 using Girassol.Data.Seeds;
+using Girassol.Services.Interfaces.Invoice;
+using Girassol.Services.Services.Invoices;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -41,8 +43,9 @@ namespace Girassal.Web
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
 
+            services.AddTransient<IInvoiceService, InvoicesService>();
 
-             Seeds.Run().GetAwaiter();
+            Seeds.Run().GetAwaiter();
 
         }
 

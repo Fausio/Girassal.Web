@@ -1,6 +1,7 @@
 ﻿using Girassol.Data.Seeds;
 using Girassol.Models;
 using Girassol.Models.DTO.ViewModels;
+using Girassol.Services.Interfaces.Invoice;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -13,17 +14,26 @@ namespace Girassal.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private IInvoiceService _invoiceService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IInvoiceService invoiceService)
         {
-       
-            _logger = logger;
+
+            _invoiceService = invoiceService;
         }
 
         public async Task<IActionResult> Index()
-        { 
-            return View(new DashBoardViewModel());
+        {
+
+            return View(
+                        new DashBoardViewModel(new InvoiceCreateOrEdiViewModel())
+                        {
+                            TotalInvoices = await _invoiceService.TotalInvoices(),
+                            TotalInvoicesDone = await _invoiceService.TotalInvoicesDone(),
+                            TotalPendent = await _invoiceService.TotalPendent(),
+                            TotalClient = await _invoiceService.TotalClient()
+                        }
+                ); ; ;
         }
 
         public IActionResult Privacy()

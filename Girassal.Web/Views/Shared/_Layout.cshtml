@@ -16,6 +16,11 @@
     <link rel="stylesheet" href="~/pro/dist/assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="~/pro/dist/assets/css/app.css">
     <link rel="shortcut icon" href="~/pro/dist/assets/images/favicon.svg" type="image/x-icon">
+    <style>
+        button {
+            background-color: orange
+        }
+    </style>
 
 </head>
 
@@ -48,6 +53,17 @@
                         </li>
 
                         @*<li class="sidebar-title"> Estatística</li>*@
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-hexagon-fill"></i>
+                                <span>Facturas </span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a asp-action="read" asp-controller="invoice"> Lista </a>
+                                </li>
+                            </ul>
+                        </li>
 
                         <li class="sidebar-item  has-sub">
                             <a href="#" class='sidebar-link'>
@@ -115,8 +131,7 @@
     @*  @await RenderSectionAsync("Scripts", required: false)*@
 
     @RenderSection("scripts", required: false)
-
-
+     
 </body>
 
 </html>

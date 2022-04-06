@@ -57,6 +57,7 @@ namespace Girassol.Data.Seeds
                      Description = "Instituição / Empresa",
                      CreatedDate = CreatedDate,
                      CreatedUserID = CreatedUserID ,
+                     statusCode = 1,
                      Guid = Guid.NewGuid()
                  },
 
@@ -66,7 +67,7 @@ namespace Girassol.Data.Seeds
                      Type = "Invoice" ,
                      Description = "Processamento",
                      CreatedDate = CreatedDate,
-                     CreatedUserID = CreatedUserID ,
+                     CreatedUserID = CreatedUserID , 
                      Guid = Guid.NewGuid()
                  },
                      new SimpleEntity()
@@ -75,6 +76,7 @@ namespace Girassol.Data.Seeds
                      Description = "Iniciada",
                      CreatedDate = CreatedDate,
                      CreatedUserID = CreatedUserID ,
+                     statusCode = 2,
                      Guid = Guid.NewGuid()
                  } ,
                       new SimpleEntity()
@@ -83,6 +85,7 @@ namespace Girassol.Data.Seeds
                      Description = "Finalizada",
                      CreatedDate = CreatedDate,
                      CreatedUserID = CreatedUserID ,
+                     statusCode = 1,
                      Guid = Guid.NewGuid()
                  }
             };
@@ -92,8 +95,7 @@ namespace Girassol.Data.Seeds
                 }
             }
             catch (Exception x)
-            {
-
+            { 
                 throw x;
             }
 

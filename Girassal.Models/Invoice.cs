@@ -9,13 +9,17 @@ using System.Threading.Tasks;
 namespace Girassol.Models
 {
     [Table("Invoice")]
+
+    // status
+    //0 pendent  invoice
+    //1 done invoice
     public class Invoice : common
-    { 
-        public Clothing  Clothings { get; set; } 
+    {
+        public Clothing Clothings { get; set; }
         public Client Client { get; set; }
         public int? ClientId { get; set; }
 
-        [Display(Name = "Data de Entrada")] 
+        [Display(Name = "Data de Entrada")]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:MM}")]
         public DateTime EntryDate { get; set; }
 

@@ -33,15 +33,52 @@
 
 
                             <div class="modal-body">
-                                <form class="form form-vertical">
+                                <form class="form form-vertical" method="post" asp-action= "create" asp-controller ="invoice">
                                     <div class="form-body">
+
+                                        @Html.Partial("_separatorWithStringParamiters",  "Dados do Cliente")
+
+                                        <div id="clientDiv">
+
+
+                                            <div class="col-12">
+                                                <div class="form-group has-icon-left">
+                                                    <label for="descr" asp-for="@Model.Client.Name">   </label>
+                                                    <div class="position-relative">
+                                                        <input type="text" class="form-control" placeholder="Nome" asp-for="@Model.Client.Name">
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-file-earmark-person"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12">
+                                                <div class="form-group has-icon-left">
+                                                    <label for="descr" asp-for="@Model.Client.Nuit">   </label>
+                                                    <div class="position-relative">
+                                                        <input type="text" class="form-control" placeholder="NUIT" asp-for="@Model.Client.Nuit">
+                                                        <div class="form-control-icon">
+                                                            <i class="bi bi-card-heading"></i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                        <div class="mt-4">
+                                            @Html.Partial("_separatorWithStringParamiters",  "Dados do Recibo")
+                                        </div>
+
+
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group has-icon-left">
                                                     <label for="first-name-icon" asp-for="@Model.EntryDate">   </label>
                                                     <div class="position-relative">
-                                                        <input type="date" class="form-control"
-                                                               id="first-name-icon" asp-for="@Model.EntryDate">
+                                                        <input type="date" class="form-control" id="first-name-icon" asp-for="@Model.EntryDate">
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-calendar"></i>
                                                         </div>
@@ -53,7 +90,7 @@
                                                 <div class="form-group has-icon-left">
                                                     <label for="qtt" asp-for="@Model.Clothings.Quantity">   </label>
                                                     <div class="position-relative">
-                                                        <input type="number" asp-for="@Model.Clothings.Quantity" class="form-control" placeholder="Mobile" id="qtt">
+                                                        <input type="number" asp-for="@Model.Clothings.Quantity" class="form-control" placeholder="Quantidade" id="qtt">
                                                     </div>
                                                 </div>
                                             </div>
@@ -62,7 +99,7 @@
                                                 <div class="form-group has-icon-left">
                                                     <label for="descr" asp-for="@Model.Description">   </label>
                                                     <div class="position-relative">
-                                                        <textarea type="tex" class="form-control" placeholder="Escreva os itens aqui" id="descr">
+                                                        <textarea type="tex" class="form-control" placeholder="Descrição dos itens aqui..." id="descr" asp-for="@Model.Description">
                                                         </textarea>
 
                                                     </div>
@@ -74,7 +111,7 @@
                                                 <div class="form-group has-icon-left">
                                                     <label for="qtt" asp-for="@Model.Price">   </label>
                                                     <div class="position-relative">
-                                                        <input type="number" asp-for="@Model.Clothings.Quantity" class="form-control" placeholder="Mobile" id="qtt">
+                                                        <input type="number" asp-for="@Model.Price" class="form-control" placeholder="Preço" id="qtt">
                                                         <div class="form-control-icon">
                                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-coin" viewBox="0 0 16 16">
                                                                 <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z" />
@@ -88,54 +125,10 @@
                                             </div>
 
 
-                                            <div class="col-12">
-                                                <div class='form-check'>
-                                                    <div class="checkbox mt-2">
-                                                        <input asp-for="@Model.showClientForm" name="my_checkbox" type="checkbox" onclick="SeeClientFilds();" id="my_checkbox" class='form-check-input'>
-                                                        <label for="my_checkbox">Emitir com NUIT do Cliente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <br />
-                                            <br />
-                                            <hr />
-
-
-
-                                            <div id="clientDiv">
-
-                                                <div class="col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="descr" asp-for="@Model.Client.Nuit">   </label>
-                                                        <div class="position-relative">
-                                                            <input type="number" class="form-control" placeholder="Password"
-                                                                   id="password-id-icon">
-                                                            <div class="form-control-icon">
-                                                                <i class="bi bi-card-heading"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="form-group has-icon-left">
-                                                        <label for="descr" asp-for="@Model.Client.Name">   </label>
-                                                        <div class="position-relative">
-                                                            <input type="number" class="form-control" placeholder="Password"
-                                                                   id="password-id-icon">
-                                                            <div class="form-control-icon">
-                                                                <i class="bi bi-file-earmark-person"></i>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                             
                                             <div class="col-12 d-flex justify-content-end">
                                                 <button type="submit" class="btn btn-primary me-1 mb-1">Emitir e Gravar</button>
-                                                <button type="reset"
-                                                        class="btn btn-light-primary me-1 mb-1">
+                                                <button type="reset" data-bs-dismiss="modal" class="btn btn-light-danger me-1 mb-1">
                                                     Cancelar
                                                 </button>
                                             </div>

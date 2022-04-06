@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Girassal.Data\Girassol.Data.csproj" />
+    <ProjectReference Include="..\Girassal.Models\Girassol.Models.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -9,8 +9,9 @@ namespace Girassol.Models
 {
     [Table("SimpleEntity")]
     public class SimpleEntity : common
-    { 
+    {
         public string Type { get; set; }
+        public int statusCode { get; set; }
 
 
 

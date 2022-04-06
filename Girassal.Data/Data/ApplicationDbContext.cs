@@ -41,7 +41,7 @@ namespace Girassal.Data.Data
 
 
         public DbSet<SimpleEntity> simpleEntitie { get; set; }
-        public DbSet<Invoice> GetInvoice { get; set; }
+        public DbSet<Invoice> Invoice { get; set; }
         public DbSet<Client> Client { get; set; }
 
     }
