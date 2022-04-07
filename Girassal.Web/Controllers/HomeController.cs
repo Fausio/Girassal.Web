@@ -35,7 +35,7 @@ namespace Girassal.Web.Controllers
                         }
                 ); ; ;
         }
-
+        
         public IActionResult Privacy()
         {
             return View();
