@@ -1,5 +1,6 @@
 ﻿using Girassol.Models;
 using Girassol.Models.DTO;
+using Girassol.Models.DTO.ViewModels;
 using Girassol.Services.Interfaces.Invoice;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace Girassol.Web.Controllers
             try
             {
                 var result = await _invoiceService.Update(model);
-                return RedirectToAction(nameof(Read));
+                return RedirectToAction(nameof(Read), new { statusMessage = 1 });
             }
             catch (System.Exception ex)
             {
@@ -75,7 +76,7 @@ namespace Girassol.Web.Controllers
 
             await _invoiceService.Update(result);
 
-            return RedirectToAction(nameof(Read));
+            return RedirectToAction(nameof(Read), new { statusMessage = 1 });
         }
 
 
@@ -92,14 +93,18 @@ namespace Girassol.Web.Controllers
         public async Task<IActionResult> Delete(Invoice model)
         {
             await _invoiceService.Remove(model);
-            return RedirectToAction(nameof(Read));
+            return RedirectToAction(nameof(Read), new { statusMessage = 1 }); 
         }
 
 
-        public async Task<IActionResult> Read()
+        public async Task<IActionResult> Read(int statusMessage = 0)
         {
+            // 1 show sucess message
+            // 0 num message
+            var model = await _invoiceService.Read();
 
-            return View(await _invoiceService.Read());
+
+            return View(new InvoiceTableViewModel(model, statusMessage));
         }
 
 
