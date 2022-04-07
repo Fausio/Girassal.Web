@@ -3,10 +3,12 @@
 
 @{
     ViewData["Title"] = "Home Page";
- }
+}
  
 
-@Html.Partial("_pageTitle",  "Vista com classe, lavar é nossa arte")
+<div class="page-heading">
+    <h3 style="color:white ">Vista com classe, lavar é nossa arte</h3>
+</div>
 
 
 
@@ -85,14 +87,22 @@
 
 
 
+
+
+
     </div>
 </div>
 
 
 
-<hr />
+<hr style="color:white " />    @Html.Partial("_invoiceForm", Model.NewInvoice)
 
- 
-    @Html.Partial("_invoiceForm", Model.NewInvoice)
- 
+<div class="row">
 
+    <div class="col-4"></div>
+    <div class="col-4">
+        <img src="~/pro/dist/assets/images/logo/lavarbg.jpg" width="500">
+    </div>
+    <div class="col-4"></div>
+
+</div>

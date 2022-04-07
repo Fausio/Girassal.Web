@@ -38,12 +38,12 @@
 
                     <tr>
                         <td>@item.Id</td>
-                        <td>@item.Client.Name</td>
+                        <td><b>@item.Client.Name</b> </td>
                         <td>@item.Client.Nuit</td>
                         <td>@item.EntryDate</td>
                         <td>@item.Description</td>
                         <td>@item.Clothings.Quantity</td>
-                        <td>@item.Price </td>
+                        <td><b> @item.Price.ToString()  MZN </b> </td>
                         <td>
 
                             @if (item.Status == 0)
