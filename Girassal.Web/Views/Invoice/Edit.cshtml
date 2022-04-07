@@ -5,12 +5,17 @@
 *@
 
 
-<form class="form form-vertical" method="post" asp-action="create" asp-controller="invoice">
+<form class="form form-vertical" method="post" asp-action="Edit" asp-controller="invoice">
+
+    @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.Client.Id)
+    @Html.HiddenFor(model => model.Clothings.Id)
+
     <div class="form-body">
 
         @Html.Partial("_separatorWithStringParamiters", "Dados do Cliente")
 
-        <div id="clientDiv">
+        <div>
 
 
             <div class="col-12">
@@ -41,7 +46,7 @@
         </div>
 
         <div class="mt-4">
-            @Html.Partial("_separatorWithStringParamiters", "Dados do Recibo")
+            @Html.Partial("_separatorWithStringParamiters", "Dados do Fatura")
         </div>
 
 
@@ -50,7 +55,7 @@
                 <div class="form-group has-icon-left">
                     <label for="first-name-icon" asp-for="@Model.EntryDate">   </label>
                     <div class="position-relative">
-                        <input type="date" class="form-control" id="first-name-icon" asp-for="@Model.EntryDate">
+                        <input type="date" class="form-control" id="first-name-icon" asp-for="@Model.EntryDate" asp-format="{0:yyyy-MM-dd}">
                         <div class="form-control-icon">
                             <i class="bi bi-calendar"></i>
                         </div>
@@ -98,8 +103,8 @@
 
 
 
-            <div class="col-12 d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary me-1 mb-1">Emitir e Gravar</button>
+            <div class="col-12 d-flex justify-content-end"> 
+                <button type="submit" class="btn btn-primary me-1 mb-1">Atualizar</button>
                 <button type="reset" data-bs-dismiss="modal" class="btn btn-light-danger me-1 mb-1">
                     Cancelar
                 </button>

@@ -20,7 +20,8 @@ namespace Girassol.Models
         public int? ClientId { get; set; }
 
         [Display(Name = "Data de Entrada")]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy HH:MM}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
         public DateTime EntryDate { get; set; }
 
         [Display(Name = "Preço")]

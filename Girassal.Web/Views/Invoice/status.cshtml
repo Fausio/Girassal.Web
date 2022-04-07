@@ -1,0 +1,23 @@
+﻿@model Girassol.Models.Invoice
+
+
+
+@if (Model.Status == 0)
+{
+    <h3>Tem certeza de que deseja Trocar o estado <b>Processamento</b> para <b>Finalizada</b> dessa fatura ? </h3>
+}
+else if (Model.Status == 1)
+{
+    <h3>Tem certeza de que deseja Trocar o estado   <b>Finalizada</b> para <b>Processamento</b> dessa fatura ? </h3>
+}
+
+
+<form method="post" asp-action="Status" asp-controller="invoice">
+    <input type="hidden" asp-for="Id" />
+    <div class="col-12 d-flex justify-content-end">
+        <button type="submit" class="btn btn-success me-1 mb-1">Alterar</button>
+        <button type="reset" data-bs-dismiss="modal" class="btn btn-light-danger me-1 mb-1">
+            Cancelar
+        </button>
+    </div>
+</form>

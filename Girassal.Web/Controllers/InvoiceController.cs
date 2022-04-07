@@ -25,23 +25,82 @@ namespace Girassol.Web.Controllers
         }
 
 
-
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(string customerId)
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
         {
-            // update here to show warning popup
-            await _invoiceService.Remove(await _invoiceService.Read(int.Parse(customerId)));
-             return PartialView("Delete", "");
-        } 
-        
-        [HttpPost]
-        public async Task<IActionResult> Edit(string customerId)
-        {
-            return PartialView("Edit", await _invoiceService.Read(int.Parse(customerId)));
+
+            var result = await _invoiceService.Read(int.Parse(id));
+            return PartialView("Edit", result);
         }
 
-        public async Task<IActionResult> Read() => View(await _invoiceService.Read());
+        [HttpPost]
+        public async Task<IActionResult> Edit(Invoice model)
+        {
+            try
+            {
+                var result = await _invoiceService.Update(model);
+                return RedirectToAction(nameof(Read));
+            }
+            catch (System.Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+
+
+        [HttpGet]
+        public async Task<IActionResult> status(string id)
+        {
+
+            var result = await _invoiceService.Read(int.Parse(id));
+            return PartialView("status", result);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Status(Invoice model)
+        {
+
+            var result = await _invoiceService.Read(model.Id);
+            if (result.Status == 0)
+            {
+                result.Status = 1;
+            }
+            else if (result.Status == 1)
+            {
+                result.Status = 0;
+            }
+
+            await _invoiceService.Update(result);
+
+            return RedirectToAction(nameof(Read));
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+
+            var result = await _invoiceService.Read(int.Parse(id));
+            return PartialView("Delete", result);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(Invoice model)
+        {
+            await _invoiceService.Remove(model);
+            return RedirectToAction(nameof(Read));
+        }
+
+
+        public async Task<IActionResult> Read()
+        {
+
+            return View(await _invoiceService.Read());
+        }
 
 
     }
