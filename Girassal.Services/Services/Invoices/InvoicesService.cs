@@ -40,6 +40,7 @@ namespace Girassol.Services.Services.Invoices
         {
             return await db.Invoice.Include(x => x.Client)
                                    .Include(x => x.Clothings)
+                                   .OrderByDescending(x => x.Id)
                                    .ToListAsync();
         }
 

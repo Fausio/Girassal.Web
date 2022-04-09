@@ -52,12 +52,14 @@
                             }
                             else if (item.Status == 1)
                             {
-                                <span class="badge bg-success">Finalizada</span>
+                        <span class="badge bg-success" style="width:114px">    Finalizada 		 </span>
                             }
 
                         </td>
 
                         <td>
+
+
 
                             <a class="btn btn-success status" style="color:white">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
@@ -66,14 +68,34 @@
                                 </svg>
                             </a>
 
+                            <a class="btn  btn-dark Print" style="color:white">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
+                                    <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
+                                    <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+                                </svg>
+                            </a>
+
+                            |
+
                             <a class="btn btn-warning edit" style="color:white">
-                                <svg class="svg-inline--fa fa-edit fa-w-18 fa-fw select-all" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="edit" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" data-fa-i2svg=""><path fill="currentColor" d="M402.6 83.2l90.2 90.2c3.8 3.8 3.8 10 0 13.8L274.4 405.6l-92.8 10.3c-12.4 1.4-22.9-9.1-21.5-21.5l10.3-92.8L388.8 83.2c3.8-3.8 10-3.8 13.8 0zm162-22.9l-48.8-48.8c-15.2-15.2-39.9-15.2-55.2 0l-35.4 35.4c-3.8 3.8-3.8 10 0 13.8l90.2 90.2c3.8 3.8 10 3.8 13.8 0l35.4-35.4c15.2-15.3 15.2-40 0-55.2zM384 346.2V448H64V128h229.8c3.2 0 6.2-1.3 8.5-3.5l40-40c7.6-7.6 2.2-20.5-8.5-20.5H48C21.5 64 0 85.5 0 112v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V306.2c0-10.7-12.9-16-20.5-8.5l-40 40c-2.2 2.3-3.5 5.3-3.5 8.5z"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+                                </svg>
                             </a>
 
 
                             <a class="btn  btn-danger Delete" style="color:white">
-                                <svg class="svg-inline--fa fa-trash-alt fa-w-14 fa-fw select-all" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="trash-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg=""><path fill="currentColor" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"></path></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                </svg>
                             </a>
+
+
+
+
+
                         </td>
                     </tr>
 
@@ -93,8 +115,25 @@
 
 
 
-<div id="partialModalStatus" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+
+<div id="partialModalPrint" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  " role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title" style="color:white">Imprimir</h5>
+
+            </div>
+            <div class="modal-body">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div id="partialModalStatus" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  " role="document">
         <div class="modal-content">
             <div class="modal-header bg-success">
                 <h5 class="modal-title" style="color:white">Estado da Fatura</h5>
@@ -107,8 +146,9 @@
     </div>
 </div>
 
-<div id="partialModal" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+
+<div id="partialModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  " role="document">
         <div class="modal-content">
             <div class="modal-header bg-warning">
                 <h5 class="modal-title">Editar</h5>
@@ -122,8 +162,8 @@
 </div>
 
 
-<div id="partialModalDelete" class="modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+<div id="partialModalDelete" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  " role="document">
         <div class="modal-content">
             <div class="modal-header bg-danger">
                 <h5 class="modal-title" style="color:white">Apagar</h5>
@@ -160,6 +200,27 @@
         setTimeout(function () { $("#hideDiv").fadeOut(1500); }, 1000)
 
     })
+
+    $(function () {
+        $("#table1 .Print").click(function () {
+            var customerId = $(this).closest("tr").find("td").eq(0).html();
+            $.ajax({
+                type: "GET",
+                url: "/Invoice/Print",
+                data: { "id": customerId },
+                success: function (response) {
+                    $("#partialModalPrint").find(".modal-body").html(response);
+                    $("#partialModalPrint").modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        });
+    });
 
     $(function () {
         $("#table1 .status").click(function () {

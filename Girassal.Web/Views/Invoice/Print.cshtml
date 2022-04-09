@@ -5,7 +5,7 @@
 *@
 
 
-<form class="form form-vertical" method="post" asp-action="Edit" asp-controller="invoice">
+<form class="form form-vertical" method="post" asp-action="Print" asp-controller="Document">
 
     @Html.HiddenFor(model => model.Id)
     @Html.HiddenFor(model => model.Client.Id)
@@ -103,8 +103,8 @@
 
 
 
-            <div class="col-12 d-flex justify-content-end"> 
-                <button type="submit" class="btn btn-warning me-1 mb-1">Atualizar</button>
+            <div class="col-12 d-flex justify-content-end">
+                <button type="submit" class="btn btn-dark me-1 mb-1">Imprimir</button>
                 <button type="reset" data-bs-dismiss="modal" class="btn btn-light-danger me-1 mb-1">
                     Cancelar
                 </button>

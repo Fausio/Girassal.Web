@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup> 
+    <PackageReference Include="ClosedXML" Version="0.95.4" /> 
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.15" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.15">
@@ -21,6 +22,10 @@
     <ProjectReference Include="..\Girassal.Data\Girassol.Data.csproj" />
     <ProjectReference Include="..\Girassal.Models\Girassol.Models.csproj" />
     <ProjectReference Include="..\Girassal.Services\Girassol.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\templates\" />
   </ItemGroup>
 
 </Project>

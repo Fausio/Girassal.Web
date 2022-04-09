@@ -81,6 +81,14 @@ namespace Girassol.Web.Controllers
 
 
         [HttpGet]
+        public async Task<IActionResult> Print(string id)
+        {
+            var result = await _invoiceService.Read(int.Parse(id));
+            return PartialView("Print", result);
+        }
+
+
+  [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
 
