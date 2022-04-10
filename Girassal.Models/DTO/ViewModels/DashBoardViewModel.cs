@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace Girassol.Models.DTO.ViewModels
 {
-    public class DashBoardViewModel
-    {
-        public InvoiceCreateOrEdiViewModel NewInvoice;
-
-
-        public DashBoardViewModel(InvoiceCreateOrEdiViewModel model)
+    public class DashBoardViewModel : CommunVIewModel
+    { 
+        public DashBoardViewModel(Invoice model)
         {
-            NewInvoice = model;
+            Invoice = model;
+
         }
+
+        public Invoice Invoice;
 
         public int TotalInvoices      { get; set; }
         public int TotalInvoicesDone    { get; set; }

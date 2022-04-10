@@ -10,10 +10,7 @@ namespace Girassol.Models.DTO.ViewModels
     {
 
         public List<Invoice> Invoices;
-
-       
          
-
         public InvoiceTableViewModel(List<Invoice> Invoices, int MessageStatus)
         {
             this.Invoices = Invoices;

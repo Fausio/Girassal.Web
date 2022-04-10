@@ -1,4 +1,4 @@
-﻿@model Girassol.Models.DTO.ViewModels.InvoiceCreateOrEdiViewModel
+﻿@model Girassol.Models.Invoice
 
 
 <div class="col-12">
@@ -78,7 +78,7 @@
                                                 <div class="form-group has-icon-left">
                                                     <label for="first-name-icon" asp-for="@Model.EntryDate">   </label>
                                                     <div class="position-relative">
-                                                        <input type="date" class="form-control" id="first-name-icon" asp-for="@Model.EntryDate">
+                                                        <input type="date" class="form-control" id="first-name-icon" asp-for="@Model.EntryDate" asp-format="{0:yyyy-MM-dd}">
                                                         <div class="form-control-icon">
                                                             <i class="bi bi-calendar"></i>
                                                         </div>

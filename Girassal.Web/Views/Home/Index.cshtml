@@ -4,13 +4,16 @@
 @{
     ViewData["Title"] = "Home Page";
 }
- 
+
 
 <div class="page-heading">
     <h3 style="color:white ">Vista com classe, lavar é nossa arte</h3>
 </div>
 
-
+@if (Model.MessageStatus == 1)
+{
+    <div id="hideDiv" class="alert alert-danger"><i class="bi bi-check-circle"></i> @Model.MessageText </div>
+}
 
 
 <div class="col-12 col-lg-12">
@@ -95,7 +98,7 @@
 
 
 
-<hr style="color:white " />    @Html.Partial("_invoiceForm", Model.NewInvoice)
+<hr style="color:white " />    @Html.Partial("_invoiceForm", Model.Invoice)
 
 <div class="row">
 

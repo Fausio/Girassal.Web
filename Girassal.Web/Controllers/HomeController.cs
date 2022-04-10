@@ -15,27 +15,57 @@ namespace Girassal.Web.Controllers
     public class HomeController : Controller
     {
         private IInvoiceService _invoiceService;
+        private DashBoardViewModel HomeModel;
 
         public HomeController(IInvoiceService invoiceService)
         {
 
             _invoiceService = invoiceService;
+            this.HomeModel = new DashBoardViewModel(new Invoice() { EntryDate = DateTime.Now.Date })
+            {
+
+                TotalInvoices = _invoiceService.TotalInvoices().Result,
+                TotalInvoicesDone = _invoiceService.TotalInvoicesDone().Result,
+                TotalPendent = _invoiceService.TotalPendent().Result,
+                TotalClient = _invoiceService.TotalClient().Result
+
+            };
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+
+            DateTime EntryDate,
+            string Name = "",
+            string Nuit = "",
+            int Quantity = 0,
+            Decimal Price = 0,
+            string Description = "",
+            int MessageStatus = 0,
+            string MessageText = ""
+
+            )
         {
+            if (EntryDate > DateTime.Now.AddYears(-1))
+            {
+                this.HomeModel.Invoice.EntryDate = EntryDate;
+            }
 
-            return View(
-                        new DashBoardViewModel(new InvoiceCreateOrEdiViewModel())
-                        {
-                            TotalInvoices = await _invoiceService.TotalInvoices(),
-                            TotalInvoicesDone = await _invoiceService.TotalInvoicesDone(),
-                            TotalPendent = await _invoiceService.TotalPendent(),
-                            TotalClient = await _invoiceService.TotalClient()
-                        }
-                ); ; ;
+
+
+            this.HomeModel.Invoice.Client.Name = Name;
+            this.HomeModel.Invoice.Client.Nuit = Nuit;
+            this.HomeModel.Invoice.Clothings.Quantity = Quantity;
+            this.HomeModel.Invoice.Price = Price;
+            this.HomeModel.Invoice.Description = Description;
+            this.HomeModel.MessageStatus = MessageStatus;
+            this.HomeModel.MessageText = MessageText;
+
+
+
+            return View(this.HomeModel);
+
         }
-        
+
         public IActionResult Privacy()
         {
             return View();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Girassol.Models.DTO.ViewModels
 {
-   public abstract class CommunVIewModel 
+   public  class CommunVIewModel 
     {
         public int MessageStatus { get; set; }
         public string MessageText { get; set; }

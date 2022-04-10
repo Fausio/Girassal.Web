@@ -29,5 +29,12 @@ namespace Girassol.Models
 
         [Display(Name = "Preço com IVA")]
         public Decimal PriceWithIva { get; set; }
+
+        public Invoice()
+        {
+            this.Client = new Client();
+            this.Clothings = new Clothing();
+           
+        }
     }
 }

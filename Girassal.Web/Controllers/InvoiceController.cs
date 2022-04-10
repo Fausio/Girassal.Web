@@ -3,6 +3,7 @@ using Girassol.Models.DTO;
 using Girassol.Models.DTO.ViewModels;
 using Girassol.Services.Interfaces.Invoice;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace Girassol.Web.Controllers
@@ -16,13 +17,65 @@ namespace Girassol.Web.Controllers
         public InvoiceController(IInvoiceService invoice)
         {
             this._invoiceService = invoice;
+
+
         }
 
         public async Task<IActionResult> create(Models.Invoice model)
         {
+
+
+            if (model.EntryDate.Date > DateTime.Now.Date || model.EntryDate.Date < DateTime.Now.AddMonths(-1))
+            {
+
+                return RedirectToAction("Index", "Home", new
+                {
+
+                    EntryDate = model.EntryDate.Date,
+                    Name = model.Client.Name,
+                    Nuit = model.Client.Nuit,
+                    Quantity = model.Clothings.Quantity,
+                    Price = model.Price,
+                    Description = model.Description,
+                    MessageStatus = 1,
+                    MessageText = "A data de entrada não pode ser maior que a data actual Ou Inferior a um mês",
+                });
+            }
+
+            if (model.Price <= 0)
+            { 
+                return RedirectToAction("Index", "Home", new
+                {
+
+                    EntryDate = model.EntryDate.Date,
+                    Name = model.Client.Name,
+                    Nuit = model.Client.Nuit,
+                    Quantity = model.Clothings.Quantity,
+                    Price = model.Price,
+                    Description = model.Description,
+                    MessageStatus = 1,
+                    MessageText = "Preço Invalido"
+                });
+            }   if (string.IsNullOrWhiteSpace(model.Client.Name) ||string.IsNullOrWhiteSpace(model.Client.Name))
+            { 
+                return RedirectToAction("Index", "Home", new
+                {
+
+                    EntryDate = model.EntryDate.Date,
+                    Name = model.Client.Name,
+                    Nuit = model.Client.Nuit,
+                    Quantity = model.Clothings.Quantity,
+                    Price = model.Price,
+                    Description = model.Description,
+                    MessageStatus = 1,
+                    MessageText = "O nome do Cliente é obrigatório"
+                });
+            }
+
+
             await _invoiceService.Create(model);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Read", "Invoice", new { statusMessage = 1 });
         }
 
 
@@ -88,7 +141,7 @@ namespace Girassol.Web.Controllers
         }
 
 
-  [HttpGet]
+        [HttpGet]
         public async Task<IActionResult> Delete(string id)
         {
 
@@ -101,7 +154,7 @@ namespace Girassol.Web.Controllers
         public async Task<IActionResult> Delete(Invoice model)
         {
             await _invoiceService.Remove(model);
-            return RedirectToAction(nameof(Read), new { statusMessage = 1 }); 
+            return RedirectToAction(nameof(Read), new { statusMessage = 1 });
         }
 
 
