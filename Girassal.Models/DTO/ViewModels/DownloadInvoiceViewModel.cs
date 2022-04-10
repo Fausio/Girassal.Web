@@ -28,8 +28,7 @@ namespace Girassol.Models.DTO.ViewModels
         {
             var now = DateTime.Now.Date;
             StartdDate = now.AddMonths(-1);
-            EndDate = now ;
-            Finalized = true;
+            EndDate = now ; 
         }
     }
 }

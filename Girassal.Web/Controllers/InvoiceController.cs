@@ -95,7 +95,7 @@ namespace Girassol.Web.Controllers
                 var result = await _invoiceService.Update(model);
                 return RedirectToAction(nameof(Read), new { statusMessage = 1 });
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
                 throw ex;

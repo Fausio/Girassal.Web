@@ -26,6 +26,9 @@ namespace Girassol.Services.Services.Invoices
 
             try
             {
+                invoice.CreatedDate = DateTime.Now;
+                invoice.Guid = Guid.NewGuid();
+
                 await db.AddAsync(invoice);
                 await db.SaveChangesAsync();
             }
@@ -55,6 +58,7 @@ namespace Girassol.Services.Services.Invoices
 
         public async Task<Invoice> Update(Invoice invoice)
         {
+            invoice.UpdatedDate = DateTime.Now;
             db.Update(invoice);
             await db.SaveChangesAsync();
 

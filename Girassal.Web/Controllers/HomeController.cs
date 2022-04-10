@@ -2,6 +2,7 @@
 using Girassol.Models;
 using Girassol.Models.DTO.ViewModels;
 using Girassol.Services.Interfaces.Invoice;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -17,11 +18,17 @@ namespace Girassal.Web.Controllers
         private IInvoiceService _invoiceService;
         private DashBoardViewModel HomeModel;
 
+
         public HomeController(IInvoiceService invoiceService)
         {
 
             _invoiceService = invoiceService;
-            this.HomeModel = new DashBoardViewModel(new Invoice() { EntryDate = DateTime.Now.Date })
+            this.HomeModel = new DashBoardViewModel(new Invoice()
+            {
+                EntryDate = DateTime.Now.Date,
+                Client = new Client(),
+                Clothings = new Clothing()
+            })
             {
 
                 TotalInvoices = _invoiceService.TotalInvoices().Result,
@@ -35,7 +42,7 @@ namespace Girassal.Web.Controllers
         public async Task<IActionResult> Index(
 
             DateTime EntryDate,
-            string Name = "",
+            string Name = "bb",
             string Nuit = "",
             int Quantity = 0,
             Decimal Price = 0,
@@ -59,8 +66,6 @@ namespace Girassal.Web.Controllers
             this.HomeModel.Invoice.Description = Description;
             this.HomeModel.MessageStatus = MessageStatus;
             this.HomeModel.MessageText = MessageText;
-
-
 
             return View(this.HomeModel);
 

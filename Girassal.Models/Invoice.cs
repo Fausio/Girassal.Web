@@ -16,6 +16,7 @@ namespace Girassol.Models
     public class Invoice : common
     {
         public Clothing Clothings { get; set; }
+        public int? ClothingsId { get; set; }
         public Client Client { get; set; }
         public int? ClientId { get; set; }
 
@@ -30,11 +31,6 @@ namespace Girassol.Models
         [Display(Name = "Preço com IVA")]
         public Decimal PriceWithIva { get; set; }
 
-        public Invoice()
-        {
-            this.Client = new Client();
-            this.Clothings = new Clothing();
-           
-        }
+
     }
 }

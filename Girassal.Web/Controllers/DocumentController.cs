@@ -84,11 +84,11 @@ namespace Girassol.Web.Controllers
             try
             {
                 var model = new DownloadInvoiceViewModel()
-                { 
-                    MessageStatus = MessageStatus 
+                {
+                    MessageStatus = MessageStatus
                 };
 
-                if (MessageStatus==1)
+                if (MessageStatus == 1)
                 {
                     model.MessageText = "Sem dados, Por favor tente novamente com parametros diferentes.";
                 }
@@ -120,10 +120,8 @@ namespace Girassol.Web.Controllers
                         using (var workbook = new XLWorkbook(fileName, XLEventTracking.Enabled))
                         {
                             var worksheet = workbook.Worksheets.FirstOrDefault();
-
-
-                            int row = 13;
-                            int column = 1;
+                             
+                            int row = 14; 
 
                             worksheet.Cell("A4").Value = "Girassol Lavandaria";
                             worksheet.Cell("A5").Value = "AV. Ahmed Sekou /touré,";
@@ -134,23 +132,23 @@ namespace Girassol.Web.Controllers
                             worksheet.Cell("D5").Value = "Data final: " + model.EndDate.Date;
 
 
-                            result.ForEach(x =>
+                            foreach (var x in result)
                             {
                                 // bold font
                                 worksheet.Cell(row, 1).Style.Font.Bold = true;
                                 worksheet.Cell(row, 5).Style.Font.Bold = true;
                                 worksheet.Cell(row, 6).Style.Font.Bold = true;
-                                 
+
                                 //data
                                 worksheet.Cell(row, 1).Value = x.Id;
                                 worksheet.Cell(row, 2).Value = x.Description;
                                 worksheet.Cell(row, 3).Value = x.Clothings.Quantity;
                                 worksheet.Cell(row, 4).Value = x.EntryDate.Date;
-                                worksheet.Cell(row, 5).Value = x.Price + " MZN";  
+                                worksheet.Cell(row, 5).Value = x.Price + " MZN";
                                 worksheet.Cell(row, 6).Value = x.Status == 0 ? "Processamento" : "Finalizada";
 
                                 // font color
-                                worksheet.Cell(row, 6).Style.Font.FontColor = XLColor.FromArgb(255, 255, 255, 255);
+                                //worksheet.Cell(row, 6).Style.Font.FontColor = XLColor.FromArgb(255, 255, 255, 255);
 
                                 //BackgroundColor
                                 //if (x.Status == 0)
@@ -161,10 +159,10 @@ namespace Girassol.Web.Controllers
                                 //{
                                 //    worksheet.Cell(row, 6).Style.Fill.SetBackgroundColor(XLColor.FromArgb(254, 192, 192));
                                 //}
-                               
+
 
                                 row++;
-                            });
+                            } 
 
 
                             var reportName = $"Retatório De Faturas - {DateTime.Now.ToString()} - " + ".xlsx";
@@ -185,7 +183,8 @@ namespace Girassol.Web.Controllers
                     {
                         return RedirectToAction("Page", "Error", new { error = @"" + ex.Message.ToString() });
                     }
-                }else
+                }
+                else
 
                     return RedirectToAction("InvoiceIndex", "Document", new { MessageStatus = 1 });
             }
