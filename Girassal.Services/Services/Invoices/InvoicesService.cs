@@ -1,5 +1,6 @@
 ﻿using Girassal.Data.Data;
 using Girassol.Models;
+using Girassol.Models.DTO.ViewModels;
 using Girassol.Services.Interfaces.Invoice;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -66,6 +67,45 @@ namespace Girassol.Services.Services.Invoices
         public async Task<int> TotalInvoicesDone() => await db.Invoice.CountAsync(x => x.Status == 1);
         public async Task<int> TotalPendent() => await db.Invoice.CountAsync(x => x.Status == 0);
         public async Task<int> TotalClient() => await db.Client.CountAsync(x => x.Status == 1);
+
+        public async Task<List<Invoice>> InvoiceWithParamiters(DownloadInvoiceViewModel model)
+        {
+
+
+
+            if (model.Finalized && model.Processing)
+            {
+                return await db.Invoice.Where(x => x.EntryDate.Date >= model.StartdDate.Date && x.EntryDate.Date <= model.EndDate.Date)
+                                   .Include(x => x.Client)
+                                   .Include(x => x.Clothings)
+                                   .OrderByDescending(x => x.Id)
+                                   .ToListAsync();
+
+            }
+
+            if (model.Finalized && !model.Processing)
+            {
+                return await db.Invoice.Where(x => x.Status == 1 && (x.EntryDate.Date >= model.StartdDate.Date && x.EntryDate.Date <= model.EndDate.Date))
+                                .Include(x => x.Client)
+                                .Include(x => x.Clothings)
+                                .OrderByDescending(x => x.Id)
+                                .ToListAsync();
+            }
+
+            if (!model.Finalized && model.Processing)
+            {
+                return await db.Invoice.Where(x => x.Status == 0 && (x.EntryDate.Date >= model.StartdDate.Date && x.EntryDate.Date <= model.EndDate.Date))
+                                .Include(x => x.Client)
+                                .Include(x => x.Clothings)
+                                .OrderByDescending(x => x.Id)
+                                .ToListAsync();
+            }
+            else
+            {
+                return null;
+            }
+
+        }
 
         #endregion
     }

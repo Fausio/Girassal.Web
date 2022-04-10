@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Girassol</title>
 
-    <link rel="icon" href="~/pro/dist/assets/images/logo/icon.png"> 
+    <link rel="icon" href="~/pro/dist/assets/images/logo/icon.png">
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
@@ -32,7 +32,7 @@
 
 <body>
     <div id="app">
-        <div id="sidebar" class="active" >
+        <div id="sidebar" class="active">
             <div class="sidebar-wrapper active" style="background-color: #ffa602">
 
                 <div style="background-color:red" class="mx-2 mt-2">
@@ -66,7 +66,13 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a asp-action="read" asp-controller="invoice"> Lista </a>
+                                    <a asp-action="read" asp-controller="invoice" class="text-white">
+
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list-columns" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M0 .5A.5.5 0 0 1 .5 0h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 0 .5Zm13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm-13 2A.5.5 0 0 1 .5 2h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5Zm13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm-13 2A.5.5 0 0 1 .5 4h10a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5Zm13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm-13 2A.5.5 0 0 1 .5 6h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm-13 2A.5.5 0 0 1 .5 8h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Zm13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm-13 2a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5Zm13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm-13 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5Zm13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Zm-13 2a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H.5a.5.5 0 0 1-.5-.5Zm13 0a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5Z" />
+                                        </svg>
+                                        - Lista
+                                    </a> 
                                 </li>
                             </ul>
                         </li>
@@ -78,7 +84,16 @@
                             </a>
                             <ul class="submenu ">
                                 <li class="submenu-item ">
-                                    <a> Relatório 1 </a>
+                                
+                                    <a asp-action="InvoiceIndex" asp-controller="Document" class="text-white">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-bar-graph" viewBox="0 0 16 16">
+                                            <path d="M10 13.5a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-6a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v6zm-2.5.5a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5h-1zm-3 0a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-1z" />
+                                            <path d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
+                                        </svg>
+
+                                        - Faturas
+                                    </a>
+
                                 </li>
                             </ul>
                         </li>
@@ -88,10 +103,16 @@
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
 
-                <img  class="mx-5" src="~/pro/dist/assets/images/logo/sidePic.jpg" />
+                <img class="mx-5" src="~/pro/dist/assets/images/logo/sidePic.jpg" />
+                <hr />
+                <div class="text-center text-white">Versão: 1.0.0 </div>
+                <div class="text-center text-white p-3" style="background-color: #ffa602">
+                    © @DateTime.Now.Year Copyright:
+                    <a class="text-white" href="#">Genesys Systems</a>
+                </div>
             </div>
 
-    
+
         </div>
 
 
@@ -114,34 +135,45 @@
 
 
                 </section>
+
+
             </div>
 
-            <footer style=" position: absolute; bottom: 0; ">
-                <div class="footer clearfix mb-0 text-muted">
-                    <div class="float-start">
-                        <p>@DateTime.Now.Year &copy; Genesys Systems </p>
-                    </div>
-                    <div class="float-end">
-                        <p>
-                            @*   Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a>*@
-                        </p>
-                    </div>
-                </div>
-            </footer>
+
+
+
         </div>
     </div>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+    
     <script src="~/pro/dist/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
     <script src="~/pro/dist/assets/js/bootstrap.bundle.min.js"></script>
     <script src="~/pro/dist/assets/vendors/apexcharts/apexcharts.js"></script>
     <script src="~/pro/dist/assets/js/pages/dashboard.js"></script>
     <script src="~/pro/dist/assets/js/mazer.js"></script>
 
-    @*  @await RenderSectionAsync("Scripts", required: false)*@
 
     @RenderSection("scripts", required: false)
-     
+
+
+
+
+
 </body>
 
 </html>

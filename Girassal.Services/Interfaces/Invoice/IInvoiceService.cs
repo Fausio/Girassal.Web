@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Girassol.Models;
+using Girassol.Models.DTO.ViewModels;
 
 namespace Girassol.Services.Interfaces.Invoice
 {
@@ -21,6 +22,7 @@ namespace Girassol.Services.Interfaces.Invoice
         public Task<int> TotalInvoicesDone();
         public Task<int> TotalPendent ();
         public Task<int> TotalClient();
+        public Task<List<Models.Invoice>> InvoiceWithParamiters(DownloadInvoiceViewModel model);
         #endregion
 
     }

@@ -1,0 +1,124 @@
+﻿@model Girassol.Models.DTO.ViewModels.DownloadInvoiceViewModel
+
+@{
+    ViewData["Title"] = "InvoiceIndex";
+}
+ 
+
+@await  Html.PartialAsync(@"/Views/Shared/_pageTitle.cshtml", "Relatórios das faturas")
+  
+
+
+    <div class="col-12">
+        <div class="card">
+
+            <div class="card-content">
+                <div class="card-body">
+
+                    <!-- button trigger for  Vertically Centered modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#exampleModalCenter">
+                        Baixar Fatura
+                    </button>
+                    <!-- Vertically Centered modal Modal -->
+                    <div class="modal fade  w-1000" id="exampleModalCenter" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel16" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
+                             role="document">
+
+
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">
+                                        Dados do relatório
+                                    </h5>
+                                    <button type="button" class="close" data-bs-dismiss="modal"
+                                            aria-label="Close">
+                                        <i data-feather="x"></i>
+                                    </button>
+                                </div>
+
+
+                                <div class="modal-body">
+                                    <form class="form form-vertical" method="post" asp-action="DownloadInvoiceWithParamiters" asp-controller="Document">
+                                        <div class="form-body">
+
+                                            @Html.Partial("_separatorWithStringParamiters", "Catégoria")
+
+                                            <div class="row">
+
+                                                <ul class="list-unstyled mb-0">
+                                                    <li class="d-inline-block me-2 mb-1">
+                                                        <div class="form-check">
+                                                            <div class="checkbox">  
+                                                                @Html.CheckBoxFor(m => m.Finalized, new { @class = "form-check-input", @name = Model.Finalized })
+                                                                <label for="@Model.Finalized" asp-for="@Model.Finalized">   </label>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="d-inline-block me-2 mb-1">
+                                                        <div class="form-check">
+                                                            <div class="checkbox">
+                                                                @Html.CheckBoxFor(m => m.Processing, new { @class = "form-check-input", @name = Model.Processing })
+                                                                <label for="@Model.Processing" asp-for="@Model.Processing">   </label>
+                                                                @Html.HiddenFor(model => model.Processing)
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                            </div>
+
+
+                                            <div class="row mt-4">
+                                                @Html.Partial("_separatorWithStringParamiters", "Intervalo de Data")
+                                            </div>
+
+
+                                            <div class="row">
+
+                                                <div class="col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="descr" asp-for="@Model.StartdDate">   </label>
+                                                        <div class="position-relative">
+                                                            <input type="date" class="form-control" placeholder="Nome" asp-for="@Model.StartdDate">
+                                                            <div class="form-control-icon">
+                                                                <i class="bi bi-file-earmark-person"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <div class="form-group has-icon-left">
+                                                        <label for="descr" asp-for="@Model.EndDate ">   </label>
+                                                        <div class="position-relative">
+                                                            <input type="date" class="form-control" placeholder="NUIT" asp-for="@Model.EndDate">
+                                                            <div class="form-control-icon">
+                                                                <i class="bi bi-card-heading"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <button type="submit" class="btn btn-primary me-1 mb-1">Baixar</button>
+                                                <button type="reset" data-bs-dismiss="modal" class="btn btn-light-danger me-1 mb-1">
+                                                    Cancelar
+                                                </button>
+                                            </div>
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 

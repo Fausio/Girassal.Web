@@ -10,5 +10,10 @@ namespace Girassol.Models.DTO.ViewModels
     {
       public  bool showClientForm { get; set; }
 
+        public InvoiceCreateOrEdiViewModel()
+        {
+            EntryDate = DateTime.Now;
+        }
+
     }
 }
