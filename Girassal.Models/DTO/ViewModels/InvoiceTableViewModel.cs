@@ -6,19 +6,20 @@ using System.Threading.Tasks;
 
 namespace Girassol.Models.DTO.ViewModels
 {
-  public  class InvoiceTableViewModel
+  public  class InvoiceTableViewModel :CommunVIewModel
     {
 
         public List<Invoice> Invoices;
 
-        // 1 show sucess message
-        // 0 num message
-
-        public int MessageStatus;
+       
+         
 
         public InvoiceTableViewModel(List<Invoice> Invoices, int MessageStatus)
         {
             this.Invoices = Invoices;
+
+            // 1 show sucess message
+            // 0 num message
             this.MessageStatus = MessageStatus;
         }
 

@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Girassol.Models.DTO.ViewModels
 {
-    public class DownloadInvoiceViewModel
+    public class DownloadInvoiceViewModel : CommunVIewModel
     {
+       
 
         [Display(Name = "Em processamento")]
         public bool Processing { get; set; }

@@ -79,11 +79,20 @@ namespace Girassol.Web.Controllers
         }
 
 
-        public async Task<IActionResult> InvoiceIndex()
+        public async Task<IActionResult> InvoiceIndex(int MessageStatus = 0)
         {
             try
             {
-                return View(new DownloadInvoiceViewModel());
+                var model = new DownloadInvoiceViewModel()
+                { 
+                    MessageStatus = MessageStatus 
+                };
+
+                if (MessageStatus==1)
+                {
+                    model.MessageText = "Sem dados, Por favor tente novamente com parametros diferentes.";
+                }
+                return View(model);
             }
             catch (Exception ex)
             {
@@ -176,9 +185,9 @@ namespace Girassol.Web.Controllers
                     {
                         return RedirectToAction("Page", "Error", new { error = @"" + ex.Message.ToString() });
                     }
-                }
+                }else
 
-                return View();
+                    return RedirectToAction("InvoiceIndex", "Document", new { MessageStatus = 1 });
             }
             catch (Exception ex)
             {
