@@ -1,8 +1,11 @@
 using Girassal.Data;
 using Girassal.Data.Data;
 using Girassol.Data.Seeds;
+using Girassol.Services.Interfaces.Account;
 using Girassol.Services.Interfaces.Invoice;
+using Girassol.Services.Services.Account;
 using Girassol.Services.Services.Invoices;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -44,7 +47,10 @@ namespace Girassal.Web
             services.AddControllersWithViews();
 
             services.AddTransient<IInvoiceService, InvoicesService>();
+            services.AddTransient<IAccountServices, AccountServices>();
 
+
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(); 
             Seeds.Run().GetAwaiter();
 
         }

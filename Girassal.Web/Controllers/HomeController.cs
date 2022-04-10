@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 
 namespace Girassal.Web.Controllers
 {
+
+    [Authorize]
     public class HomeController : Controller
     {
         private IInvoiceService _invoiceService;

@@ -1,0 +1,44 @@
+﻿@model Girassol.Models.Loginmodel
+
+
+@Html.Partial("_pageTitle", "Log In")
+
+
+<div id="auth" class="text-white">
+    <div class="row h-100">
+        <div class="col-lg-5 col-12">
+            <div id="auth-left">
+                <p class="auth-subtitle mb-5">Faça login com seus dados inseridos durante o registro</p>
+
+                <form action="index.html">
+                    <div class="form-group position-relative has-icon-left mb-4">
+                        <input type="text" class="form-control form-control-xl" asp-for="@Model.UserName" placeholder="Nome do usuário">
+                        <div class="form-control-icon">
+                            <i class="bi bi-person"></i>
+                        </div>
+                    </div>
+                    <div class="form-group position-relative has-icon-left mb-4">
+                        <input type="password" class="form-control form-control-xl" asp-for="@Model.Password" placeholder="Senha">
+                        <div class="form-control-icon">
+                            <i class="bi bi-shield-lock"></i>
+                        </div>
+                    </div>
+                    <div class="form-check form-check-lg d-flex align-items-end"> 
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-check-input me-2", @id = "flexCheckDefault" })
+                        <label class="form-check-label text-white" for="flexCheckDefault">
+                            Mantenha-me conectado
+                        </label>
+                    </div>
+                    <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Log in</button>
+                </form>
+
+            </div>
+        </div>
+        <div class="col-lg-7 d-none d-lg-block">
+            <div id="auth-right">
+
+            </div>
+        </div>
+    </div>
+
+</div>
