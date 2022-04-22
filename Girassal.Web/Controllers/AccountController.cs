@@ -22,10 +22,24 @@ namespace Girassol.Web.Controllers
             this._IAccountServices = IAccountServices;
         }
 
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult Login(string returUrl = "/")
         {
             return View(new Loginmodel { ReturnUrl = returUrl });
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Index", "Home");
+        }
+         
+        public  IActionResult  AccessDenied()
+        {
+            return View();
         }
 
 
@@ -38,14 +52,15 @@ namespace Girassol.Web.Controllers
 
             if (user == null)
             {
-                return Unauthorized();
+                return View(nameof(Login));
             }
 
             var claims = new List<Claim>();
 
 
             claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-            claims.Add(new Claim(ClaimTypes.Name, user.UserName));
+            claims.Add(new Claim(ClaimTypes.Name, user.Name));
+            claims.Add(new Claim(ClaimTypes.Role, user.Role));
 
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -55,5 +70,7 @@ namespace Girassol.Web.Controllers
 
             return LocalRedirect(model.ReturnUrl);
         }
+
+
     }
 }

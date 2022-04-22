@@ -1,4 +1,5 @@
-﻿using Girassol.Data.Seeds;
+﻿using Girassol.Data.Helpers;
+using Girassol.Data.Seeds;
 using Girassol.Models;
 using Girassol.Models.DTO.ViewModels;
 using Girassol.Services.Interfaces.Invoice;
@@ -44,7 +45,7 @@ namespace Girassal.Web.Controllers
         public async Task<IActionResult> Index(
 
             DateTime EntryDate,
-            string Name = "bb",
+            string Name = "",
             string Nuit = "",
             int Quantity = 0,
             Decimal Price = 0,

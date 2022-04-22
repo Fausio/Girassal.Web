@@ -101,6 +101,33 @@
 
                     </ul>
                 </div>
+
+                <div class="sidebar-menu ">
+                    <ul class="menu">
+                        <li class="sidebar-title">Utilizador:</li>
+
+                        <li class="sidebar-item text-white">
+                            <a class='sidebar-link text-white'>
+                                <i class="bi bi-person"></i>
+                                <span class="text-white">
+                                    @User.Identity.Name
+                                </span>
+                                <span class="text-white">
+                                    @using (Html.BeginForm("logout", "Account", FormMethod.Post))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-outline-danger">
+                                            <i class="bi bi-unlock-fill text-white"></i>
+                                        </button>
+                                    }
+                                </span>
+                            </a>
+                        </li>
+
+
+
+                    </ul>
+                </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
 
                 <img class="mx-5" src="~/pro/dist/assets/images/logo/sidePic.jpg" />
@@ -166,7 +193,7 @@
     <script src="~/pro/dist/assets/js/pages/dashboard.js"></script>
     <script src="~/pro/dist/assets/js/mazer.js"></script>
 
- 
+
 
     @RenderSection("scripts", required: false)
 

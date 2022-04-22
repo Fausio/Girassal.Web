@@ -10,7 +10,7 @@ namespace Girassol.Services.Interfaces.Account
 {
     public interface IAccountServices
     { 
-        Task<IdentityUser> GetUSerNameAndPassord(string userName, string Password);
-        Task CreateUser(IdentityUser user); 
+        Task<User> GetUSerNameAndPassord(string userName, string Password);
+        Task CreateUser(User user); 
     }
 }

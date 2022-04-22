@@ -2,12 +2,14 @@
 using Girassol.Models.DTO;
 using Girassol.Models.DTO.ViewModels;
 using Girassol.Services.Interfaces.Invoice;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
 namespace Girassol.Web.Controllers
 {
+    [Authorize()] 
     public class InvoiceController : Controller
     {
 
@@ -72,7 +74,7 @@ namespace Girassol.Web.Controllers
                 });
             }
 
-
+            
             await _invoiceService.Create(model);
 
             return RedirectToAction("Read", "Invoice", new { statusMessage = 1 });

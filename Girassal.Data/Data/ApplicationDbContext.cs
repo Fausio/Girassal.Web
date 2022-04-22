@@ -14,11 +14,11 @@ namespace Girassal.Data.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
-       
+
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-       
+
         }
 
         public ApplicationDbContext()
@@ -43,6 +43,7 @@ namespace Girassal.Data.Data
         public DbSet<SimpleEntity> simpleEntitie { get; set; }
         public DbSet<Invoice> Invoice { get; set; }
         public DbSet<Client> Client { get; set; }
+        public DbSet<User> Users { get; set; }
 
     }
 }

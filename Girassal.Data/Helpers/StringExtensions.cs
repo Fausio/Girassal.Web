@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace Girassol.Data.Helpers
 {
+
     public static class StringExtensions
     {
+        public const string RoleAdmin = "Admin";
+        public const string RoleNormal = "Normal";
+        public const string RoleAll = "Normal,Admin";
+
         public static string Sha256(this string input)
         {
             using (var sha = SHA256.Create())

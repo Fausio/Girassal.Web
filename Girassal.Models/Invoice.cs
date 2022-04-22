@@ -30,6 +30,8 @@ namespace Girassol.Models
 
         [Display(Name = "Preço com IVA")]
         public Decimal PriceWithIva { get; set; }
+        public Decimal IvaValue { get; set; }
+        public string Tiket { get; set; }
 
 
     }

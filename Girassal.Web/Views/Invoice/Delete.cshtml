@@ -95,17 +95,25 @@
                 </div>
             </div>
 
+            <div class="col-12">
+                <div class="form-group has-icon-left">
+                    <label for="Tiket" asp-for="@Model.Tiket">   </label>
+                    <div class="position-relative">
+                        <input type="number" asp-for="@Model.Tiket" class="form-control" placeholder="tiket..." id="Tiket">
+                    </div>
+                </div>
+            </div>
 
             <div class="col-12 d-flex justify-content-end">
                 <form asp-action="Delete">
                     <input type="hidden" asp-for="Id" />
-                    <button type="submit"  class="btn btn-danger"> Apagar </button>
+                    <button type="submit" class="btn btn-danger"> Apagar </button>
                     <button type="reset" data-bs-dismiss="modal" class="btn btn-light-danger me-1 mb-1">
                         Cancelar
                     </button>
                 </form>
- 
-               
+
+
             </div>
 
         </div>

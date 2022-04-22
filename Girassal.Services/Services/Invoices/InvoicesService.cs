@@ -29,12 +29,14 @@ namespace Girassol.Services.Services.Invoices
                 invoice.CreatedDate = DateTime.Now;
                 invoice.Guid = Guid.NewGuid();
 
+                invoice.IvaValue =  (invoice.Price * 17) / 100; 
+                invoice.PriceWithIva = invoice.Price - invoice.IvaValue ;
+
                 await db.AddAsync(invoice);
                 await db.SaveChangesAsync();
             }
             catch (Exception x)
-            {
-
+            { 
                 throw x;
             }
 
@@ -59,6 +61,10 @@ namespace Girassol.Services.Services.Invoices
         public async Task<Invoice> Update(Invoice invoice)
         {
             invoice.UpdatedDate = DateTime.Now;
+
+            invoice.IvaValue = (invoice.Price * 17) / 100;
+            invoice.PriceWithIva = invoice.Price - invoice.IvaValue;
+
             db.Update(invoice);
             await db.SaveChangesAsync();
 

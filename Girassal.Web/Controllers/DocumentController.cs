@@ -1,7 +1,9 @@
 ﻿using ClosedXML.Excel;
+using Girassol.Data.Helpers;
 using Girassol.Models;
 using Girassol.Models.DTO.ViewModels;
 using Girassol.Services.Interfaces.Invoice;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,8 @@ using System.Threading.Tasks;
 
 namespace Girassol.Web.Controllers
 {
+
+    [Authorize]
     public class DocumentController : Controller
     {
         private IInvoiceService _invoiceService;
@@ -49,8 +53,10 @@ namespace Girassol.Web.Controllers
 
                     worksheet.Cell("B17").Value = result.Clothings.Quantity;
                     worksheet.Cell("D17").Value = result.Description;
-                    worksheet.Cell("M17").Value = result.Price + " MZN";
-                    worksheet.Cell("M32").Value = result.Price + " MZN";
+                    worksheet.Cell("M17").Value = result.PriceWithIva + " MZN";
+                    worksheet.Cell("M32").Value = result.PriceWithIva + " MZN";
+ 
+                    worksheet.Cell("M30").Value = result.IvaValue + " MZN";
 
 
 
@@ -78,7 +84,7 @@ namespace Girassol.Web.Controllers
 
         }
 
-
+        //[Authorize(Roles = StringExtensions.RoleAdmin)]
         public async Task<IActionResult> InvoiceIndex(int MessageStatus = 0)
         {
             try
@@ -101,6 +107,7 @@ namespace Girassol.Web.Controllers
         }
 
         [HttpPost]
+        //[Authorize(Roles = StringExtensions.RoleAdmin)]
         public async Task<IActionResult> DownloadInvoiceWithParamiters(DownloadInvoiceViewModel model)
         {
             try
@@ -120,8 +127,8 @@ namespace Girassol.Web.Controllers
                         using (var workbook = new XLWorkbook(fileName, XLEventTracking.Enabled))
                         {
                             var worksheet = workbook.Worksheets.FirstOrDefault();
-                             
-                            int row = 14; 
+
+                            int row = 14;
 
                             worksheet.Cell("A4").Value = "Girassol Lavandaria";
                             worksheet.Cell("A5").Value = "AV. Ahmed Sekou /touré,";
@@ -144,8 +151,9 @@ namespace Girassol.Web.Controllers
                                 worksheet.Cell(row, 2).Value = x.Description;
                                 worksheet.Cell(row, 3).Value = x.Clothings.Quantity;
                                 worksheet.Cell(row, 4).Value = x.EntryDate.Date;
-                                worksheet.Cell(row, 5).Value = x.Price + " MZN";
-                                worksheet.Cell(row, 6).Value = x.Status == 0 ? "Processamento" : "Finalizada";
+                                worksheet.Cell(row, 5).Value = x.PriceWithIva + " MZN";
+                                worksheet.Cell(row, 6).Value = x.IvaValue + " MZN";
+                                worksheet.Cell(row, 7).Value = x.Status == 0 ? "Processamento" : "Finalizada";
 
                                 // font color
                                 //worksheet.Cell(row, 6).Style.Font.FontColor = XLColor.FromArgb(255, 255, 255, 255);
@@ -162,7 +170,7 @@ namespace Girassol.Web.Controllers
 
 
                                 row++;
-                            } 
+                            }
 
 
                             var reportName = $"Retatório De Faturas - {DateTime.Now.ToString()} - " + ".xlsx";

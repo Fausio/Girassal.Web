@@ -22,15 +22,15 @@ namespace Girassol.Services.Services.Account
             db = new ApplicationDbContext();
         }
 
-        public async Task CreateUser(IdentityUser model)
+        public async Task CreateUser(User model)
         {
             await db.Users.AddAsync(model);
             await db.SaveChangesAsync();
         }
 
-        public async Task<IdentityUser> GetUSerNameAndPassord(string userName, string Password)
+        public async Task<User> GetUSerNameAndPassord(string userName, string Password)
         {
-            IdentityUser result = await db.Users.FirstOrDefaultAsync(x => x.UserName == userName && x.PasswordHash == Password.Sha256());
+            var result = await db.Users.FirstOrDefaultAsync(x => x.Username == userName && x.Password == Password.Sha256());
 
             return result;
         }

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Girassol.Models
 {
+    [Table("User")]
     public class User : common
     {
         public string Name { get; set; }
@@ -20,7 +22,6 @@ namespace Girassol.Models
         [DisplayName("Senha")]
         public string Password { get; set; }
         public string Role { get; set; }
-        public bool Blocked { get; set; }
-        public string TodoIStToken { get; set; }
+        public bool Blocked { get; set; } 
     }
 }

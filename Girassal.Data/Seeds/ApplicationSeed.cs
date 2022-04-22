@@ -1,4 +1,5 @@
 ﻿using Girassal.Data.Data;
+using Girassol.Data.Helpers;
 using Girassol.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +12,9 @@ using System.Threading.Tasks;
 namespace Girassol.Data.Seeds
 {
     public static class ApplicationSeed
-    {  
+    {
 
-        
+
 
         public static async Task SeedSimpleEntity()
         {
@@ -24,6 +25,8 @@ namespace Girassol.Data.Seeds
                 int CreatedUserID = 1;
 
                 ApplicationDbContext db = new ApplicationDbContext(new DbContextOptions<ApplicationDbContext>());
+
+                //SE
                 var result = db.simpleEntitie.Count();
 
                 if (result <= 0)
@@ -67,7 +70,7 @@ namespace Girassol.Data.Seeds
                      Type = "Invoice" ,
                      Description = "Processamento",
                      CreatedDate = CreatedDate,
-                     CreatedUserID = CreatedUserID , 
+                     CreatedUserID = CreatedUserID ,
                      Guid = Guid.NewGuid()
                  },
                      new SimpleEntity()
@@ -93,13 +96,51 @@ namespace Girassol.Data.Seeds
                     await db.AddRangeAsync(Enums);
                     await db.SaveChangesAsync();
                 }
+
+
+                //User
+
+                var userResult = db.Users.Count();
+                if (userResult <= 0)
+                {
+
+                    var user = new List<User>(){
+                        new User()
+                        {
+                            CreatedDate = DateTime.Now.Date,
+                            FullName = "Admin",
+                            Email = "Admin@email.com",
+                            Guid = Guid.NewGuid(),
+                            Description = "App admin",
+                            Name = "Admin",
+                            Password =StringExtensions.Sha256( "admin1122"),
+                            Username = "Admin",
+                            Role = StringExtensions.RoleAdmin
+                        },
+                        new User()
+                        {
+                            CreatedDate = DateTime.Now.Date,
+                            FullName = "Giraso",
+                            Email = "Admin@email.com",
+                            Guid = Guid.NewGuid(),
+                            Description = "App normal",
+                            Name = "Giraso",
+                            Password = StringExtensions.Sha256("giraso"),
+                            Username = "Giraso",
+                            Role = StringExtensions.RoleAdmin
+                        }
+                     };
+
+                    await db.AddRangeAsync(user);
+                    await db.SaveChangesAsync();
+                }
             }
             catch (Exception x)
-            { 
+            {
                 throw x;
             }
 
-         
+
 
 
 
