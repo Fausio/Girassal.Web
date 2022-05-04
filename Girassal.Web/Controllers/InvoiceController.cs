@@ -1,25 +1,28 @@
-﻿using Girassol.Models;
+﻿using Girassol.Data.Helpers;
+using Girassol.Models;
 using Girassol.Models.DTO;
 using Girassol.Models.DTO.ViewModels;
 using Girassol.Services.Interfaces.Invoice;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Girassol.Web.Controllers
 {
-    [Authorize()] 
+    [Authorize()]
     public class InvoiceController : Controller
     {
 
         private IInvoiceService _invoiceService;
+        private readonly UserManager<IdentityUser> _userManager;
 
-
-        public InvoiceController(IInvoiceService invoice)
+        public InvoiceController(IInvoiceService invoice, UserManager<IdentityUser> userManager)
         {
             this._invoiceService = invoice;
-
+            this._userManager = userManager;
 
         }
 
@@ -45,7 +48,7 @@ namespace Girassol.Web.Controllers
             }
 
             if (model.Price <= 0)
-            { 
+            {
                 return RedirectToAction("Index", "Home", new
                 {
 
@@ -58,8 +61,9 @@ namespace Girassol.Web.Controllers
                     MessageStatus = 1,
                     MessageText = "Preço Invalido"
                 });
-            }   if (string.IsNullOrWhiteSpace(model.Client.Name) ||string.IsNullOrWhiteSpace(model.Client.Name))
-            { 
+            }
+            if (string.IsNullOrWhiteSpace(model.Client.Name) || string.IsNullOrWhiteSpace(model.Client.Name))
+            {
                 return RedirectToAction("Index", "Home", new
                 {
 
@@ -74,7 +78,7 @@ namespace Girassol.Web.Controllers
                 });
             }
 
-            
+
             await _invoiceService.Create(model);
 
             return RedirectToAction("Read", "Invoice", new { statusMessage = 1 });
@@ -111,8 +115,25 @@ namespace Girassol.Web.Controllers
         public async Task<IActionResult> status(string id)
         {
 
+
+            var Role = User.FindFirstValue(ClaimTypes.Role);// will give the user's Email
             var result = await _invoiceService.Read(int.Parse(id));
-            return PartialView("status", result);
+
+            if (result.Status == 0)
+            {
+                return PartialView("status", result);
+            }
+            else if (result.Status == 1 && Role == StringExtensions.RoleAdmin)
+            {
+                return PartialView("status", result);
+            } 
+            else
+            {
+                result.Status = 2;
+                return PartialView("status", result);
+            }
+
+
         }
 
         [HttpPost]

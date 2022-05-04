@@ -30,9 +30,23 @@ namespace Girassol.Services.Services.Account
 
         public async Task<User> GetUSerNameAndPassord(string userName, string Password)
         {
-            var result = await db.Users.FirstOrDefaultAsync(x => x.Username == userName && x.Password == Password.Sha256());
 
-            return result;
+            try
+            {
+                var data = await db.Users.ToListAsync();
+                var passwordHashed = Password.Sha256();
+
+
+             var   result = data.FirstOrDefault(x => x.Username == userName && x.Password == passwordHashed);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
         }
     }
 }

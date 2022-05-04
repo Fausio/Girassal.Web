@@ -22,12 +22,7 @@ namespace Girassol.Web.Controllers
             this._IAccountServices = IAccountServices;
         }
 
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Login(string returUrl = "/")
-        {
-            return View(new Loginmodel { ReturnUrl = returUrl });
-        }
+
 
         [HttpPost]
         [AllowAnonymous]
@@ -42,33 +37,50 @@ namespace Girassol.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Login(string returUrl = "/", string msg = "")
+        {
+            ViewBag.msg = msg;
+
+            return View(new Loginmodel { ReturnUrl = returUrl });
+        }
 
         [HttpPost]
         [AllowAnonymous]
         public async Task<IActionResult> Login(Loginmodel model)
         {
 
-            var user = await _IAccountServices.GetUSerNameAndPassord(model.UserName, model.Password);
-
-            if (user == null)
+            try
             {
-                return View(nameof(Login));
+                var user = await _IAccountServices.GetUSerNameAndPassord(model.UserName, model.Password);
+
+                if (user == null)
+                { 
+                    return RedirectToAction("Login", "Account", new { msg ="User invalido" });
+                }
+
+                var claims = new List<Claim>();
+
+
+                claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
+                claims.Add(new Claim(ClaimTypes.Name, user.Name));
+                claims.Add(new Claim(ClaimTypes.Role, user.Role));
+
+
+                var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                var principal = new ClaimsPrincipal(identity);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = model.RememberMe });
+
+                return LocalRedirect(model.ReturnUrl);
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Page", "Error", new { error = @"" + ex.Message.ToString() });
             }
 
-            var claims = new List<Claim>();
 
-
-            claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-            claims.Add(new Claim(ClaimTypes.Name, user.Name));
-            claims.Add(new Claim(ClaimTypes.Role, user.Role));
-
-
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
-
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties { IsPersistent = model.RememberMe });
-
-            return LocalRedirect(model.ReturnUrl);
         }
 
 

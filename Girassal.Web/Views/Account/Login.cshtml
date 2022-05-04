@@ -10,6 +10,14 @@
             <div id="auth-left">
                 <p class="auth-subtitle mb-5">Faça login com seus dados inseridos durante o registro</p>
 
+                @if (!string.IsNullOrWhiteSpace(ViewBag.msg))  
+                {
+                <p class="text-danger">Erro: @ViewBag.msg</p>
+
+                }
+
+
+
                 <form asp-action="login" asp-controller="Account" method="post">
                     <input type="hidden" asp-for="@Model.ReturnUrl" />
 
@@ -38,7 +46,7 @@
         </div>
         <div class="col-lg-7 d-none d-lg-block">
             <div id="auth-right" style="background-color:darkslateblue; width:100%;">
-                 
+
             </div>
         </div>
     </div>

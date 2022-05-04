@@ -4,11 +4,13 @@ using Girassol.Models;
 using Girassol.Models.DTO.ViewModels;
 using Girassol.Services.Interfaces.Invoice;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Girassol.Web.Controllers
@@ -18,9 +20,11 @@ namespace Girassol.Web.Controllers
     public class DocumentController : Controller
     {
         private IInvoiceService _invoiceService;
-        public DocumentController(IInvoiceService invoice)
+        private readonly UserManager<IdentityUser> _userManager;
+        public DocumentController(IInvoiceService invoice, UserManager<IdentityUser> userManager)
         {
             this._invoiceService = invoice;
+            this._userManager = userManager;
         }
 
 
@@ -122,11 +126,12 @@ namespace Girassol.Web.Controllers
 
         }
 
-        //[Authorize(Roles = StringExtensions.RoleAdmin)]
+       [Authorize(Roles = StringExtensions.RoleAdmin)]
         public async Task<IActionResult> InvoiceIndex(int MessageStatus = 0)
         {
             try
             {
+
                 var model = new DownloadInvoiceViewModel()
                 {
                     MessageStatus = MessageStatus
