@@ -7,103 +7,105 @@
 
 @if (Model.MessageStatus == 1)
 {
-    <div id="hideDiv" class="alert alert-success"><i class="bi bi-check-circle"></i> Operação realizada com sucesso ! </div>
+	<div id="hideDiv" class="alert alert-success"><i class="bi bi-check-circle"></i> Operação realizada com sucesso ! </div>
 }
 
 
 
 <div class="card">
-    <div class="card-header">
-        Lista dos Faturas
-    </div>
-    <div class="card-body">
-        <table class="table table-striped grid" id="table1" ellpadding="0" cellspacing="0">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome do Cliente</th>
-                    <th>Nuite</th>
-                    <th>Data de Entrega</th>
-                    <th>Descrição</th>
-                    <th>Quantidade de roupa</th>
-                    <th>Preço</th>
-                    <th>Estado</th>
-                    <th> </th>
-                </tr>
-            </thead>
-            <tbody>
+	<div class="card-header">
+		Lista dos Faturas
+	</div>
+	<div class="card-body">
+		<table class="table table-striped grid" id="table1" ellpadding="0" cellspacing="0">
+			<thead>
+				<tr> 
+					<th>Id</th>
+					<th>Codigo</th>
+					<th>Nome do Cliente</th>
+					<th>Nuite</th>
+					<th>Data de Entrega</th>
+					<th>Descrição</th>
+					<th>Quantidade de roupa</th>
+					<th>Preço</th>
+					<th>Estado</th>
+					<th> </th>
+				</tr>
+			</thead>
+			<tbody>
 
-                @foreach (Invoice item in Model.Invoices)
-                {
+				@foreach (Invoice item in Model.Invoices)
+				{
 
-                    <tr>
-                        <td>@item.Id</td>
-                        <td><b>@item.Client.Name</b> </td>
-                        <td>@item.Client.Nuit</td>
-                        <td>@item.EntryDate</td>
-                        <td>@item.Description</td>
-                        <td>@item.Clothings.Quantity</td>
-                        <td><b> @item.Price.ToString()  MZN </b> </td>
-                        <td>
+					<tr> 
+						<td>@item.Id</td>
+						<td><b>@item.Code</b></td>
+						<td><b>@item.Client.Name</b> </td>
+						<td>@item.Client.Nuit</td>
+						<td>@item.EntryDate</td>
+						<td>@item.Description</td>
+						<td>@item.Clothings.Quantity</td>
+						<td><b> @item.Price.ToString()  MZN </b> </td>
+						<td>
 
-                            @if (item.Status == 0)
-                            {
-                                <span class="badge bg-warning">Processamento</span>
-                            }
-                            else if (item.Status == 1)
-                            {
-                        <span class="badge bg-success" style="width:114px">    Finalizada 		 </span>
-                            }
+							@if (item.Status == 0)
+							{
+								<span class="badge bg-warning">Processamento</span>
+							}
+							else if (item.Status == 1)
+							{
+								<span class="badge bg-success" style="width:114px">    Finalizada 		 </span>
+							}
 
-                        </td>
+						</td>
 
-                        <td>
-
-
-
-                            <a class="btn btn-success status" style="color:white">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-                                    <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
-                                </svg>
-                            </a>
-
-                            <a class="btn  btn-dark Print" style="color:white">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
-                                    <path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
-                                    <path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
-                                </svg>
-                            </a>
-
-                            |
-
-                            <a class="btn btn-warning edit" style="color:white">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                    <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
-                                </svg>
-                            </a>
-
-
-                            <a class="btn  btn-danger Delete" style="color:white">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
-                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
-                                </svg>
-                            </a>
+						<td>
 
 
 
+							<a class="btn btn-success status" style="color:white">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bag-check" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M10.854 8.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L7.5 10.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+									<path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+								</svg>
+							</a>
+
+							<a class="btn  btn-dark Print" style="color:white">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer-fill" viewBox="0 0 16 16">
+									<path d="M5 1a2 2 0 0 0-2 2v1h10V3a2 2 0 0 0-2-2H5zm6 8H5a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1z" />
+									<path d="M0 7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-1v-2a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v2H2a2 2 0 0 1-2-2V7zm2.5 1a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z" />
+								</svg>
+							</a>
+
+							|
+
+							<a class="btn btn-warning edit" style="color:white">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
+									<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+									<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" />
+								</svg>
+							</a>
 
 
-                        </td>
-                    </tr>
+							<a class="btn  btn-danger Delete" style="color:white">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+									<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+									<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+								</svg>
+							</a>
 
-                }
 
-            </tbody>
-        </table>
-    </div>
+
+
+
+						</td>
+					</tr>
+
+				}
+
+			</tbody>
+		</table>
+	</div>
 </div>
 
 
@@ -117,172 +119,172 @@
 
 
 <div id="partialModalPrint" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  " role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-dark">
-                <h5 class="modal-title" style="color:white">Imprimir</h5>
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  " role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-dark">
+				<h5 class="modal-title" style="color:white">Imprimir</h5>
 
-            </div>
-            <div class="modal-body">
-            </div>
+			</div>
+			<div class="modal-body">
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
 
 
 
 <div id="partialModalStatus" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  " role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-success">
-                <h5 class="modal-title" style="color:white">Estado da Fatura</h5>
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  " role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-success">
+				<h5 class="modal-title" style="color:white">Estado da Fatura</h5>
 
-            </div>
-            <div class="modal-body">
-            </div>
+			</div>
+			<div class="modal-body">
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
 
 
 <div id="partialModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  " role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-warning">
-                <h5 class="modal-title">Editar</h5>
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  " role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-warning">
+				<h5 class="modal-title">Editar</h5>
 
-            </div>
-            <div class="modal-body">
-            </div>
+			</div>
+			<div class="modal-body">
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
 
 
 <div id="partialModalDelete" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  " role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-danger">
-                <h5 class="modal-title" style="color:white">Apagar</h5>
+	<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable  " role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-danger">
+				<h5 class="modal-title" style="color:white">Apagar</h5>
 
-            </div>
-            <div class="modal-body">
-            </div>
+			</div>
+			<div class="modal-body">
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
- 
+
 
 
 <script src="~/pro/dist/assets/vendors/simple-datatables/simple-datatables.js"></script>
 
 <script>
-    // Simple Datatable
-    let table1 = document.querySelector('#table1');
-    let dataTable = new simpleDatatables.DataTable(table1);
+	// Simple Datatable
+	let table1 = document.querySelector('#table1');
+	let dataTable = new simpleDatatables.DataTable(table1);
 </script>
 
 
-<script src="~/js/jquery.min.js"></script> 
+<script src="~/js/jquery.min.js"></script>
 
 
 
 <script type="text/javascript">
 
 
-    $(function () {
-        setTimeout(function () { $("#hideDiv").fadeOut(1500); }, 1000)
+	$(function () {
+		setTimeout(function () { $("#hideDiv").fadeOut(1500); }, 1000)
 
-    })
+	})
 
-    $(function () {
-        $("#table1 .Print").click(function () {
-            var customerId = $(this).closest("tr").find("td").eq(0).html();
-            $.ajax({
-                type: "GET",
-                url: "/Invoice/Print",
-                data: { "id": customerId },
-                success: function (response) {
-                    $("#partialModalPrint").find(".modal-body").html(response);
-                    $("#partialModalPrint").modal('show');
-                },
-                failure: function (response) {
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert(response.responseText);
-                }
-            });
-        });
-    });
+	$(function () {
+		$("#table1 .Print").click(function () {
+			var customerId = $(this).closest("tr").find("td").eq(0).html();
+			$.ajax({
+				type: "GET",
+				url: "/Invoice/Print",
+				data: { "id": customerId },
+				success: function (response) {
+					$("#partialModalPrint").find(".modal-body").html(response);
+					$("#partialModalPrint").modal('show');
+				},
+				failure: function (response) {
+					alert(response.responseText);
+				},
+				error: function (response) {
+					alert(response.responseText);
+				}
+			});
+		});
+	});
 
-    $(function () {
-        $("#table1 .status").click(function () {
-            var customerId = $(this).closest("tr").find("td").eq(0).html();
-            $.ajax({
-                type: "GET",
-                url: "/Invoice/status",
-                data: { "id": customerId },
-                success: function (response) {
-                    $("#partialModalStatus").find(".modal-body").html(response);
-                    $("#partialModalStatus").modal('show');
-                },
-                failure: function (response) {
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert(response.responseText);
-                }
-            });
-        });
-    });
-
-
-    $(function () {
-        $("#table1 .edit").click(function () {
-            var customerId = $(this).closest("tr").find("td").eq(0).html();
-            $.ajax({
-                type: "GET",
-                url: "/Invoice/Edit",
-                data: { "id": customerId },
-                success: function (response) {
-                    $("#partialModal").find(".modal-body").html(response);
-                    $("#partialModal").modal('show');
-                },
-                failure: function (response) {
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert(response.responseText);
-                }
-            });
-        });
-    });
+	$(function () {
+		$("#table1 .status").click(function () {
+			var customerId = $(this).closest("tr").find("td").eq(0).html();
+			$.ajax({
+				type: "GET",
+				url: "/Invoice/status",
+				data: { "id": customerId },
+				success: function (response) {
+					$("#partialModalStatus").find(".modal-body").html(response);
+					$("#partialModalStatus").modal('show');
+				},
+				failure: function (response) {
+					alert(response.responseText);
+				},
+				error: function (response) {
+					alert(response.responseText);
+				}
+			});
+		});
+	});
 
 
-    $(function () {
-        $("#table1 .Delete").click(function () {
-            var customerId = $(this).closest("tr").find("td").eq(0).html();
-            $.ajax({
-                type: "GET",
-                url: "/Invoice/Delete",
-                data: { "id": customerId },
-                success: function (response) {
-                    $("#partialModalDelete").find(".modal-body").html(response);
-                    $("#partialModalDelete").modal('show');
-                },
-                failure: function (response) {
-                    alert(response.responseText);
-                },
-                error: function (response) {
-                    alert(response.responseText);
-                }
-            });
-        });
-    });
+	$(function () {
+		$("#table1 .edit").click(function () {
+			var customerId = $(this).closest("tr").find("td").eq(0).html();
+			$.ajax({
+				type: "GET",
+				url: "/Invoice/Edit",
+				data: { "id": customerId },
+				success: function (response) {
+					$("#partialModal").find(".modal-body").html(response);
+					$("#partialModal").modal('show');
+				},
+				failure: function (response) {
+					alert(response.responseText);
+				},
+				error: function (response) {
+					alert(response.responseText);
+				}
+			});
+		});
+	});
+
+
+	$(function () {
+		$("#table1 .Delete").click(function () {
+			var customerId = $(this).closest("tr").find("td").eq(0).html();
+			$.ajax({
+				type: "GET",
+				url: "/Invoice/Delete",
+				data: { "id": customerId },
+				success: function (response) {
+					$("#partialModalDelete").find(".modal-body").html(response);
+					$("#partialModalDelete").modal('show');
+				},
+				failure: function (response) {
+					alert(response.responseText);
+				},
+				error: function (response) {
+					alert(response.responseText);
+				}
+			});
+		});
+	});
 </script>
 

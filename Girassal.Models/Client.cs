@@ -17,7 +17,11 @@ namespace Girassol.Models
     {
         [Display(Name = "Nome Do Cliente")]
         public string Name  { get; set; }
-        public string Nuit { get; set; } 
-       
+        public string Nuit { get; set; }
+
+        [Display(Name = "Numero de telefone")]
+        [Required(ErrorMessage = "Numero de telefone é obrigatório!")]
+        public int Cell { get; set; }
+
     }
 }

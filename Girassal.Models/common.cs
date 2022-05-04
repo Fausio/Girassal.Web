@@ -19,6 +19,7 @@ namespace Girassol.Models
 
         [Display(Name = "Descrição")]
         public string Description { get; set; }
+        public string Code { get; set; }
         public int Status { get; set; }
 
     }

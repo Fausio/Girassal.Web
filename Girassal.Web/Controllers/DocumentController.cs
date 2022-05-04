@@ -23,6 +23,8 @@ namespace Girassol.Web.Controllers
             this._invoiceService = invoice;
         }
 
+
+
         [HttpPost]
         public async Task<IActionResult> Print(Invoice model)
         {
@@ -35,13 +37,15 @@ namespace Girassol.Web.Controllers
                 var fileName = CurrentDirectory + @"\wwwroot\templates\fatura.xlsx";
 
                 using (var workbook = new XLWorkbook(fileName, XLEventTracking.Enabled))
-                {
+                { 
+                    #region up
                     var worksheet = workbook.Worksheets.FirstOrDefault();
-
+                  
                     worksheet.Cell("B4").Value = "Girassol Lavandaria";
                     worksheet.Cell("B5").Value = "AV. Ahmed Sekou /touré,";
                     worksheet.Cell("B6").Value = "nº 3479 R/C Cidade de Maputo, Alto-Maé";
                     worksheet.Cell("B7").Value = "+ 258 86 085 2222";
+                    worksheet.Cell("B9").Value = "Codigo: " + result.Code;
 
                     worksheet.Cell("G4").Value = "Nome: " + result.Client.Name;
 
@@ -50,22 +54,56 @@ namespace Girassol.Web.Controllers
 
                         worksheet.Cell("G5").Value = "Nuit: " + result.Client.Nuit;
                     }
+                    if (result.Client.Cell > 0)
+                    {
+                        worksheet.Cell("G5").Value = "Telefone: " + result.Client.Cell;
+                    }
 
                     worksheet.Cell("B17").Value = result.Clothings.Quantity;
                     worksheet.Cell("D17").Value = result.Description;
                     worksheet.Cell("M17").Value = result.PriceWithIva + " MZN";
-                    worksheet.Cell("M32").Value = result.Price + " MZN";
- 
-                    worksheet.Cell("M30").Value = result.IvaValue + " MZN";
+                    worksheet.Cell("M24").Value = result.Price + " MZN";
+
+                    worksheet.Cell("M22").Value = result.IvaValue + " MZN";
+                    #endregion
 
 
+                    #region down 
 
+                    worksheet.Cell("B40").Value = "Girassol Lavandaria";
+                    worksheet.Cell("B41").Value = "AV. Ahmed Sekou /touré,";
+                    worksheet.Cell("B42").Value = "nº 3479 R/C Cidade de Maputo, Alto-Maé";
+                    worksheet.Cell("B43").Value = "+ 258 86 085 2222";
+                    worksheet.Cell("B45").Value = "Codigo: " + result.Code;
 
+                    worksheet.Cell("G40").Value = "Nome: " + result.Client.Name;
+
+                    if (!string.IsNullOrEmpty(result.Client.Nuit))
+                    {
+
+                        worksheet.Cell("G41").Value = "Nuit: " + result.Client.Nuit;
+                    }
+                    if ( result.Client.Cell > 0)
+                    { 
+                        worksheet.Cell("G42").Value = "Telefone: " + result.Client.Cell;
+                    }
+
+                    worksheet.Cell("B52").Value = result.Clothings.Quantity;
+                    worksheet.Cell("D52").Value = result.Description;
+                    worksheet.Cell("M52").Value = result.PriceWithIva + " MZN";
+                    worksheet.Cell("M59").Value = result.Price + " MZN";
+
+                    worksheet.Cell("M57").Value = result.IvaValue + " MZN";
+                    #endregion
+
+                    worksheet.Protect();
 
                     var reportName = $"Fatura - {DateTime.Now.ToString()} - " + ".xlsx";
 
                     using (var stream = new MemoryStream())
                     {
+
+
                         workbook.SaveAs(stream);
                         var content = stream.ToArray();
 

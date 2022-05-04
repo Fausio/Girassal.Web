@@ -31,13 +31,17 @@ namespace Girassol.Services.Services.Invoices
 
                 invoice.PriceWithIva = (invoice.Price / 117 * 100);
                 invoice.IvaValue = invoice.Price - invoice.PriceWithIva;
-
+                 
 
                 await db.AddAsync(invoice);
                 await db.SaveChangesAsync();
+
+                invoice.Code = "GL-" + invoice.Id.ToString();
+                db.Update(invoice);
+                await db.SaveChangesAsync();
             }
             catch (Exception x)
-            { 
+            {
                 throw x;
             }
 
@@ -51,7 +55,19 @@ namespace Girassol.Services.Services.Invoices
                                    .ToListAsync();
         }
 
-        public async Task<Invoice> Read(int id) => await db.Invoice.Include(x => x.Clothings).Include(x => x.Client).FirstOrDefaultAsync(x => x.Id == id);
+        public async Task<Invoice> Read(int id)
+        {
+            try
+            {
+                var result = await db.Invoice.Include(x => x.Clothings).Include(x => x.Client).FirstOrDefaultAsync(x => x.Id == id);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
         public async Task Remove(Invoice invoice)
         {
