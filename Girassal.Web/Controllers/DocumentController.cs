@@ -54,7 +54,7 @@ namespace Girassol.Web.Controllers
                     worksheet.Cell("B17").Value = result.Clothings.Quantity;
                     worksheet.Cell("D17").Value = result.Description;
                     worksheet.Cell("M17").Value = result.PriceWithIva + " MZN";
-                    worksheet.Cell("M32").Value = result.PriceWithIva + " MZN";
+                    worksheet.Cell("M32").Value = result.Price + " MZN";
  
                     worksheet.Cell("M30").Value = result.IvaValue + " MZN";
 
