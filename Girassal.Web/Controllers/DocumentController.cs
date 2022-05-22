@@ -63,7 +63,7 @@ namespace Girassol.Web.Controllers
                         worksheet.Cell("G5").Value = "Telefone: " + result.Client.Cell;
                     }
 
-                    worksheet.Cell("B17").Value = result.Clothings.Quantity;
+                    worksheet.Cell("B17").Value = result.Quantity;
                     worksheet.Cell("D17").Value = result.Description;
                     worksheet.Cell("M17").Value = result.PriceWithIva + " MZN";
                     worksheet.Cell("M24").Value = result.Price + " MZN";
@@ -92,7 +92,7 @@ namespace Girassol.Web.Controllers
                         worksheet.Cell("G42").Value = "Telefone: " + result.Client.Cell;
                     }
 
-                    worksheet.Cell("B52").Value = result.Clothings.Quantity;
+                    worksheet.Cell("B52").Value = result.Quantity;
                     worksheet.Cell("D52").Value = result.Description;
                     worksheet.Cell("M52").Value = result.PriceWithIva + " MZN";
                     worksheet.Cell("M59").Value = result.Price + " MZN";
@@ -194,7 +194,7 @@ namespace Girassol.Web.Controllers
                                 worksheet.Cell(row, 1).Value = x.Id;
                                 worksheet.Cell(row, 2).Value = x.Code;
                                 worksheet.Cell(row, 3).Value = x.Description;
-                                worksheet.Cell(row, 4).Value = x.Clothings.Quantity;
+                                worksheet.Cell(row, 4).Value = x.Quantity;
                                 worksheet.Cell(row, 5).Value = x.EntryDate  ;
                                 worksheet.Cell(row, 6).Value = x.Price + " MZN";
                                 worksheet.Cell(row, 7).Value = x.PriceWithIva + " MZN";

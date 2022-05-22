@@ -2,11 +2,15 @@
 using Girassol.Models;
 using Girassol.Models.DTO;
 using Girassol.Models.DTO.ViewModels;
+using Girassol.Services.Interfaces.Account;
 using Girassol.Services.Interfaces.Invoice;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -18,17 +22,55 @@ namespace Girassol.Web.Controllers
 
         private IInvoiceService _invoiceService;
         private readonly UserManager<IdentityUser> _userManager;
+        private IAccountServices _IAccountServices;
+        private int CurrentUserId;
 
-        public InvoiceController(IInvoiceService invoice, UserManager<IdentityUser> userManager)
+        public InvoiceController(IInvoiceService invoice, UserManager<IdentityUser> userManager, IAccountServices IAccountServices)
         {
             this._invoiceService = invoice;
             this._userManager = userManager;
+            this._IAccountServices = IAccountServices;
 
         }
 
-        public async Task<IActionResult> create(Models.Invoice model)
-        {
 
+
+        public async Task<IActionResult> create(Invoice model)
+        {
+            CurrentUserId = await _IAccountServices.GetUserId(User.Identity.Name);
+
+            if (model.Quantity > 0)
+            {
+
+
+
+                for (int i = 0; i < model.Quantity; i++)
+                {
+                    model.Clothings.Add(new Clothing()
+                    {
+                        CreatedDate = DateTime.Now.Date,
+                        Guid = Guid.NewGuid(),
+                        CreatedUserID = CurrentUserId
+                    });
+                }
+
+                model.CreatedUserID = CurrentUserId; 
+                model.EntryDate = DateTime.Now.Date;
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home", new
+                {
+                    MessageText = "Falha: A quantidade deve ser maior que zero !",
+                });
+            }
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> createInvoice(Invoice model)
+        {
 
             if (model.EntryDate.Date > DateTime.Now.Date || model.EntryDate.Date < DateTime.Now.AddMonths(-1))
             {
@@ -39,13 +81,20 @@ namespace Girassol.Web.Controllers
                     EntryDate = model.EntryDate.Date,
                     Name = model.Client.Name,
                     Nuit = model.Client.Nuit,
-                    Quantity = model.Clothings.Quantity,
+                    Quantity = model.Quantity,
                     Price = model.Price,
                     Description = model.Description,
                     MessageStatus = 1,
                     MessageText = "A data de entrada não pode ser maior que a data actual Ou Inferior a um mês",
                 });
             }
+
+
+            foreach (var item in model.Clothings)
+            {
+                model.Price = model.Price + item.Price;
+            }
+
 
             if (model.Price <= 0)
             {
@@ -55,7 +104,7 @@ namespace Girassol.Web.Controllers
                     EntryDate = model.EntryDate.Date,
                     Name = model.Client.Name,
                     Nuit = model.Client.Nuit,
-                    Quantity = model.Clothings.Quantity,
+                    Quantity = model.Quantity,
                     Price = model.Price,
                     Description = model.Description,
                     MessageStatus = 1,
@@ -70,7 +119,7 @@ namespace Girassol.Web.Controllers
                     EntryDate = model.EntryDate.Date,
                     Name = model.Client.Name,
                     Nuit = model.Client.Nuit,
-                    Quantity = model.Clothings.Quantity,
+                    Quantity = model.Quantity,
                     Price = model.Price,
                     Description = model.Description,
                     MessageStatus = 1,
@@ -83,6 +132,9 @@ namespace Girassol.Web.Controllers
 
             return RedirectToAction("Read", "Invoice", new { statusMessage = 1 });
         }
+
+
+
 
 
         [HttpGet]
@@ -98,6 +150,17 @@ namespace Girassol.Web.Controllers
         {
             try
             {
+                CurrentUserId = await _IAccountServices.GetUserId(User.Identity.Name);
+                model.UpdatedUserID = CurrentUserId;
+
+
+                model.Price = 0;
+                foreach (var item in model.Clothings)
+                {
+                    model.Price = model.Price + item.Price;
+                    item.UpdatedUserID = CurrentUserId;
+                }
+
                 var result = await _invoiceService.Update(model);
                 return RedirectToAction(nameof(Read), new { statusMessage = 1 });
             }
@@ -108,8 +171,6 @@ namespace Girassol.Web.Controllers
             }
 
         }
-
-
 
         [HttpGet]
         public async Task<IActionResult> status(string id)
@@ -126,7 +187,7 @@ namespace Girassol.Web.Controllers
             else if (result.Status == 1 && Role == StringExtensions.RoleAdmin)
             {
                 return PartialView("status", result);
-            } 
+            }
             else
             {
                 result.Status = 2;

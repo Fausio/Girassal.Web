@@ -1,0 +1,158 @@
+﻿@model Girassol.Models.Invoice
+
+@{
+    ViewData["Title"] = "create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-white">Creiar</h1>
+
+
+<div id="exampleModalCenter" tabindex="-1">
+    <div class="modal-dialog modal-lg   modal-dialog-scrollable" role="document">
+
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">
+                    Novo Recebo
+                </h5>
+                <button type="button" class="close" data-bs-dismiss="modal"
+                        aria-label="Close">
+                    <i data-feather="x"></i>
+                </button>
+            </div>
+
+
+            <div class="modal-body">
+                <form class="form form-vertical" method="post" asp-action="createInvoice" asp-controller="invoice">
+                    @Html.HiddenFor(x => Model.CreatedUserID)
+                    @Html.HiddenFor(x => Model.Guid)
+
+                    <div class="form-body">
+
+                        @Html.Partial("_separatorWithStringParamiters", "Dados do Cliente")
+
+                        <div id="clientDiv">
+
+
+                            <div class="col-12">
+                                <div class="form-group has-icon-left">
+                                    <label for="descr" asp-for="@Model.Client.Name">   </label>
+                                    <div class="position-relative">
+                                        <input type="text" class="form-control" placeholder="Nome" asp-for="@Model.Client.Name">
+                                        <div class="form-control-icon">
+                                            <i class="bi bi-file-earmark-person"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group has-icon-left">
+                                    <label for="descr" asp-for="@Model.Client.Nuit">   </label>
+                                    <div class="position-relative">
+                                        <input type="text" class="form-control" placeholder="NUIT" asp-for="@Model.Client.Nuit">
+                                        <div class="form-control-icon">
+                                            <i class="bi bi-card-heading"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group has-icon-left">
+                                    <label for="descr" asp-for="@Model.Client.Cell">   </label>
+                                    <div class="position-relative">
+                                        <input type="number" class="form-control" placeholder="Cell" asp-for="@Model.Client.Cell">
+                                        <div class="form-control-icon">
+                                            <i class="bi bi-telephone"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="mt-4">
+                            @Html.Partial("_separatorWithStringParamiters", "Dados da Fatura")
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="form-group has-icon-left">
+                                    <label for="first-name-icon" asp-for="@Model.EntryDate">   </label>
+                                    <div class="position-relative">
+                                        <input type="date" class="form-control" id="first-name-icon" asp-for="@Model.EntryDate" asp-format="{0:yyyy-MM-dd}">
+                                        <div class="form-control-icon">
+                                            <i class="bi bi-calendar"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row " style=" background-color:goldenrod">
+
+
+                            @for (int i = 0; i < Model.Clothings.Count; i++)
+                            {
+                                @Html.HiddenFor(x => Model.Clothings[i])
+                                @Html.HiddenFor(x => Model.Clothings[i].CreatedUserID)
+                                @Html.HiddenFor(x => Model.Clothings[i].Guid)
+
+                                <div class="col-5">
+                                    <div class="form-group has-icon-left">
+                                        <label class="text-white" for="descr"> Item:  @(i + 1)  </label>
+                                        <div class="position-relative">
+                                            <input type="text" class="form-control" id="first-name-icon" asp-for="@Model.Clothings[i].Description">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-7">
+                                    <div class="form-group has-icon-left">
+                                        <label class="text-white" asp-for="@Model.Clothings[i].Price"> Preço   </label>
+                                        <div class="position-relative">
+                                            <input type="number" class="form-control" id="first-name-icon" asp-for="@Model.Clothings[i].Price">
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+
+
+
+
+                        </div>
+
+                        <div class="row">
+
+
+                            <div class="col-12">
+                                <div class="form-group has-icon-left">
+                                    <label for="Tiket" asp-for="@Model.Tiket">   </label>
+                                    <div class="position-relative">
+                                        <input type="number" asp-for="@Model.Tiket" class="form-control" placeholder="tiket..." id="Tiket">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary me-1 mb-1">Gravar</button>
+                                <a asp-action="index" asp-controller="home" class="btn btn-light-danger me-1 mb-1">
+                                    Cancelar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

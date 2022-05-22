@@ -98,11 +98,20 @@
 
 
 
-<hr style="color:white " />    @Html.Partial("_invoiceForm", Model.Invoice)
+
+<hr style="color:white " />
+
+@*@Html.Partial("_invoiceForm", Model.Invoice)*@
+
+@*<partial name ="/Views/_StartToCreateinvoice.cshtml" />*@
+
+@*@Html.PartialAsync("/Views/_StartToCreateinvoice.cshtml", Model.ItemToBeCreated)*@
+
+@Html.Partial("_StartToCreateinvoice", Model.Clothing)
 
 <div class="row">
 
-    <div class="col-4"></div>
+    <div class="col-4"> </div>
     <div class="col-4">
         <img src="~/pro/dist/assets/images/logo/lavarbg.jpg" width="500">
     </div>

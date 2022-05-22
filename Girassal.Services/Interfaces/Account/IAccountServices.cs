@@ -12,5 +12,6 @@ namespace Girassol.Services.Interfaces.Account
     { 
         Task<User> GetUSerNameAndPassord(string userName, string Password);
         Task CreateUser(User user); 
+        Task<int> GetUserId(string userName);
     }
 }

@@ -26,12 +26,12 @@ namespace Girassal.Web.Controllers
         {
 
             _invoiceService = invoiceService;
-            this.HomeModel = new DashBoardViewModel(new Invoice()
-            {
-                EntryDate = DateTime.Now.Date,
-                Client = new Client(),
-                Clothings = new Clothing()
-            })
+            this.HomeModel = new DashBoardViewModel(
+                new Invoice()
+                {
+                    EntryDate = DateTime.Now.Date,
+                    Client = new Client()
+                })
             {
 
                 TotalInvoices = _invoiceService.TotalInvoices().Result,
@@ -64,7 +64,7 @@ namespace Girassal.Web.Controllers
 
             this.HomeModel.Invoice.Client.Name = Name;
             this.HomeModel.Invoice.Client.Nuit = Nuit;
-            this.HomeModel.Invoice.Clothings.Quantity = Quantity;
+            //this.HomeModel.Invoice.Clothings.Quantity = Quantity;
             this.HomeModel.Invoice.Price = Price;
             this.HomeModel.Invoice.Description = Description;
             this.HomeModel.MessageStatus = MessageStatus;

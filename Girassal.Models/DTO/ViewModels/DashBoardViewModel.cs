@@ -19,8 +19,7 @@ namespace Girassol.Models.DTO.ViewModels
         public int TotalInvoices      { get; set; }
         public int TotalInvoicesDone    { get; set; }
         public int TotalPendent         { get; set; }
-        public int TotalClient          { get; set; }
-
-
+        public int TotalClient          { get; set; } 
+        public Clothing Clothing { get; set; }  
     }
 }

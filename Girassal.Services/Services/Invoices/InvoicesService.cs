@@ -77,6 +77,12 @@ namespace Girassol.Services.Services.Invoices
 
         public async Task<Invoice> Update(Invoice invoice)
         {
+
+            foreach (var item in invoice.Clothings)
+            {
+                item.UpdatedDate = DateTime.Now;
+            }
+
             invoice.UpdatedDate = DateTime.Now;
 
             invoice.PriceWithIva = (invoice.Price / 117 * 100);

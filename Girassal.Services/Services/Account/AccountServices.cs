@@ -28,6 +28,12 @@ namespace Girassol.Services.Services.Account
             await db.SaveChangesAsync();
         }
 
+        public async Task<int> GetUserId(string userName)
+        {
+            var result = await db.Users.FirstOrDefaultAsync(x => x.Username == userName);
+            return result.Id;
+        }
+
         public async Task<User> GetUSerNameAndPassord(string userName, string Password)
         {
 
@@ -37,7 +43,7 @@ namespace Girassol.Services.Services.Account
                 var passwordHashed = Password.Sha256();
 
 
-             var   result = data.FirstOrDefault(x => x.Username == userName && x.Password == passwordHashed);
+                var result = data.FirstOrDefault(x => x.Username == userName && x.Password == passwordHashed);
 
                 return result;
             }
