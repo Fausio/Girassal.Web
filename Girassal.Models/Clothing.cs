@@ -15,8 +15,10 @@ namespace Girassol.Models
 
         [Display(Name = "Tipo")]
         public int? SimpleEntityId { get; set; }
-
         [Display(Name = "Quantidade")]
         public int Quantity { get; set; }
+
+        [Display(Name = "Preço")]
+        public Decimal Price { get; set; }
     }
 }
