@@ -52,14 +52,14 @@ namespace Girassol.Services.Services.Invoices
             return await db.Invoice.Include(x => x.Client)
                                    .Include(x => x.Clothings)
                                    .OrderByDescending(x => x.Id)
-                                   .ToListAsync();
+                                   .Where(x => x.State == 0).ToListAsync();
         }
 
         public async Task<Invoice> Read(int id)
         {
             try
             {
-                var result = await db.Invoice.Include(x => x.Clothings).Include(x => x.Client).FirstOrDefaultAsync(x => x.Id == id);
+                var result = await db.Invoice.Include(x => x.Clothings).Include(x => x.Client).FirstOrDefaultAsync(x => x.Id == id && x.State == 0);
 
                 return result;
             }
@@ -71,8 +71,8 @@ namespace Girassol.Services.Services.Invoices
 
         public async Task Remove(Invoice invoice)
         {
-            db.Remove(invoice);
-            await db.SaveChangesAsync();
+            invoice.State = 1;// deleted
+            await Update(invoice);
         }
 
         public async Task<Invoice> Update(Invoice invoice)
@@ -96,10 +96,10 @@ namespace Girassol.Services.Services.Invoices
 
 
         #region Dashboard
-        public async Task<int> TotalInvoices() => await db.Invoice.CountAsync();
-        public async Task<int> TotalInvoicesDone() => await db.Invoice.CountAsync(x => x.Status == 1);
-        public async Task<int> TotalPendent() => await db.Invoice.CountAsync(x => x.Status == 0);
-        public async Task<int> TotalClient() => await db.Client.CountAsync(x => x.Status == 1);
+        public async Task<int> TotalInvoices() => await db.Invoice.CountAsync(x => x.State == 0 );
+        public async Task<int> TotalInvoicesDone() => await db.Invoice.CountAsync(x => x.Status == 1 && x.State == 0);
+        public async Task<int> TotalPendent() => await db.Invoice.CountAsync(x => x.Status == 0 && x.State == 0);
+        public async Task<int> TotalClient() => await db.Client.CountAsync();
 
         public async Task<List<Invoice>> InvoiceWithParamiters(DownloadInvoiceViewModel model)
         {
@@ -108,7 +108,7 @@ namespace Girassol.Services.Services.Invoices
 
             if (model.Finalized && model.Processing)
             {
-                return await db.Invoice.Where(x => x.EntryDate.Date >= model.StartdDate.Date && x.EntryDate.Date <= model.EndDate.Date)
+                return await db.Invoice.Where(x => x.EntryDate.Date >= model.StartdDate.Date && x.EntryDate.Date <= model.EndDate.Date &&  x.State == 0)
                                    .Include(x => x.Client)
                                    .Include(x => x.Clothings)
                                    .OrderByDescending(x => x.Id)
@@ -118,7 +118,7 @@ namespace Girassol.Services.Services.Invoices
 
             if (model.Finalized && !model.Processing)
             {
-                return await db.Invoice.Where(x => x.Status == 1 && (x.EntryDate.Date >= model.StartdDate.Date && x.EntryDate.Date <= model.EndDate.Date))
+                return await db.Invoice.Where(x => x.Status == 1 && (x.EntryDate.Date >= model.StartdDate.Date && x.EntryDate.Date <= model.EndDate.Date) && x.State == 0)
                                 .Include(x => x.Client)
                                 .Include(x => x.Clothings)
                                 .OrderByDescending(x => x.Id)
@@ -127,7 +127,7 @@ namespace Girassol.Services.Services.Invoices
 
             if (!model.Finalized && model.Processing)
             {
-                return await db.Invoice.Where(x => x.Status == 0 && (x.EntryDate.Date >= model.StartdDate.Date && x.EntryDate.Date <= model.EndDate.Date))
+                return await db.Invoice.Where(x => x.Status == 0 && (x.EntryDate.Date >= model.StartdDate.Date && x.EntryDate.Date <= model.EndDate.Date) && x.State == 0)
                                 .Include(x => x.Client)
                                 .Include(x => x.Clothings)
                                 .OrderByDescending(x => x.Id)
