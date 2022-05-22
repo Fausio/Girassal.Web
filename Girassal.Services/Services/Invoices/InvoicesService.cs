@@ -71,6 +71,7 @@ namespace Girassol.Services.Services.Invoices
 
         public async Task Remove(Invoice invoice)
         {
+            invoice = await Read(invoice.Id);
             invoice.State = 1;// deleted
             await Update(invoice);
         }
