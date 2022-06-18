@@ -70,9 +70,9 @@ namespace Girassol.Web.Controllers
                         row++;
                     }
 
-                    worksheet.Cell(string.Format("B{0}", row + 1)).Value = "Iva: " + result.PriceWithIva + " MZN";
-                    worksheet.Cell(string.Format("B{0}", row + 2)).Value = "Iva: " + result.IvaValue + " MZN";
-                    worksheet.Cell(string.Format("B{0}", row + 3)).Value = "Total: " + result.Price + " MZN";
+                    worksheet.Cell(string.Format("A{0}", row + 1)).Value = "Iva: " + result.PriceWithIva + " MZN";
+                    worksheet.Cell(string.Format("A{0}", row + 2)).Value = "Iva: " + result.IvaValue + " MZN";
+                    worksheet.Cell(string.Format("A{0}", row + 3)).Value = "Total: " + result.Price + " MZN";
 
                     worksheet.Cell(string.Format("A{0}", row + 5)).Value = "TERMOS: Nenhum";
                     worksheet.Cell(string.Format("A{0}", row + 6)).Value = "===============";
@@ -128,9 +128,9 @@ namespace Girassol.Web.Controllers
                         row++;
                     }
 
-                    worksheet.Cell(string.Format("B{0}", row + 1)).Value = "Iva: " + result.PriceWithIva + " MZN";
-                    worksheet.Cell(string.Format("B{0}", row + 2)).Value = "Iva: " + result.IvaValue + " MZN";
-                    worksheet.Cell(string.Format("B{0}", row + 3)).Value = "Total: " + result.Price + " MZN";
+                    worksheet.Cell(string.Format("A{0}", row + 1)).Value = "Iva: " + result.PriceWithIva + " MZN";
+                    worksheet.Cell(string.Format("A{0}", row + 2)).Value = "Iva: " + result.IvaValue + " MZN";
+                    worksheet.Cell(string.Format("A{0}", row + 3)).Value = "Total: " + result.Price + " MZN";
 
                     worksheet.Cell(string.Format("A{0}", row + 5)).Value = "TERMOS: Nenhum";
                     worksheet.Cell(string.Format("A{0}", row + 6)).Value = "===============";
