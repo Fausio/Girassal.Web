@@ -154,13 +154,14 @@
             <div class="page-content">
 
 
-
+                @if (TempData["MessageText"] != null)
+                {
+                    <div id="hideDiv" class="alert alert-danger"><i class="bi bi-check-circle"></i> @TempData["MessageText"]   </div>
+                }
                 <section class="row">
 
                     @RenderBody()
-
-
-
+                      
                 </section>
 
 
@@ -192,9 +193,7 @@
     <script src="~/pro/dist/assets/vendors/apexcharts/apexcharts.js"></script>
     <script src="~/pro/dist/assets/js/pages/dashboard.js"></script>
     <script src="~/pro/dist/assets/js/mazer.js"></script>
-
-
-
+ 
     @RenderSection("scripts", required: false)
 
 

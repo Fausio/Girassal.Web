@@ -42,6 +42,6 @@ namespace Girassol.Models
 
         [Display(Name = "Quantidade de item")]
         public int Quantity { get; set; }
-
+         
     }
 }

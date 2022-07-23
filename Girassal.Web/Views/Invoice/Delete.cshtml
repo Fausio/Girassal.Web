@@ -2,7 +2,7 @@
 
 <h3>Tem certeza de que deseja excluir Essa fatura ? </h3>
 <div>
-	<hr />
+    <hr />
 
 
     <div class="form-body">
@@ -79,23 +79,30 @@
                 @Html.HiddenFor(x => Model.Clothings[i].CreatedUserID)
                 @Html.HiddenFor(x => Model.Clothings[i].Guid)
 
-                <div class="col-5">
-                    <div class="form-group has-icon-left">
-                        <label class="text-white" for="descr"> Item:  @(i + 1)  </label>
-                        <div class="position-relative">
-                            <input type="text" class="form-control" id="first-name-icon" asp-for="@Model.Clothings[i].Description">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-7">
-                    <div class="form-group has-icon-left">
-                        <label class="text-white" asp-for="@Model.Clothings[i].Price"> Preço   </label>
-                        <div class="position-relative">
-                            <input type="number" class="form-control" id="first-name-icon" asp-for="@Model.Clothings[i].Price">
-                        </div>
-                    </div>
-                </div>
+                   <div class="col-4">
+                                        <div class="form-group has-icon-left">
+                                            <label class="text-white" for="descr"> Item:  @(i + 1)  </label>
+                                            <div class="position-relative">
+                                                <input type="text" class="form-control" id="first-name-icon" asp-for="@Model.Clothings[i].Description">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group has-icon-left">
+                                              <label class="text-white" asp-for="@Model.Clothings[i].Quantity"> Quantidade   </label>
+                                            <div class="position-relative">
+                                                <input type="number" class="form-control" id="first-name-icon" asp-for="@Model.Clothings[i].Quantity">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group has-icon-left">
+                                            <label class="text-white" asp-for="@Model.Clothings[i].Price"> Preço   </label>
+                                            <div class="position-relative">
+                                                <input type="number" class="form-control" id="first-name-icon" asp-for="@Model.Clothings[i].Price">
+                                            </div>
+                                        </div>
+                                    </div>
             }
 
 

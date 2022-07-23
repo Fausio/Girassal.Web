@@ -83,23 +83,30 @@
                 @Html.HiddenFor(x => Model.Clothings[i].CreatedUserID)
                 @Html.HiddenFor(x => Model.Clothings[i].Guid)
 
-                <div class="col-5">
-                    <div class="form-group has-icon-left">
-                        <label class="text-white" for="descr"> Item:  @(i + 1)  </label>
-                        <div class="position-relative">
-                            <input type="text" class="form-control" id="first-name-icon" asp-for="@Model.Clothings[i].Description">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-7">
-                    <div class="form-group has-icon-left">
-                        <label class="text-white" asp-for="@Model.Clothings[i].Price"> Preço   </label>
-                        <div class="position-relative">
-                            <input type="number" class="form-control" id="first-name-icon" asp-for="@Model.Clothings[i].Price">
-                        </div>
-                    </div>
-                </div>
+     <div class="col-4">
+                                        <div class="form-group has-icon-left">
+                                            <label class="text-white" for="descr"> Item:  @(i + 1)  </label>
+                                            <div class="position-relative">
+                                                <input type="text" class="form-control" id="first-name-icon" asp-for="@Model.Clothings[i].Description">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group has-icon-left">
+                                              <label class="text-white" asp-for="@Model.Clothings[i].Quantity"> Quantidade   </label>
+                                            <div class="position-relative">
+                                                <input type="number" class="form-control" id="first-name-icon" asp-for="@Model.Clothings[i].Quantity">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="form-group has-icon-left">
+                                            <label class="text-white" asp-for="@Model.Clothings[i].Price"> Preço   </label>
+                                            <div class="position-relative">
+                                                <input type="number" class="form-control" id="first-name-icon" asp-for="@Model.Clothings[i].Price">
+                                            </div>
+                                        </div>
+                                    </div>
             }
 
 
@@ -140,7 +147,7 @@
             </div>
 
             <div class="col-12 d-flex justify-content-end">
-                <button type="submit" class="btn btn-warning me-1 mb-1">Baixar ⬇️ </button>
+                <button type="submit" class="btn btn-dark me-1 mb-1">Baixar ⬇️ </button>
                 <button type="reset" data-bs-dismiss="modal" class="btn btn-light-danger me-1 mb-1">
                     Cancelar
                 </button>

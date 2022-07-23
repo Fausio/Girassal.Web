@@ -19,19 +19,38 @@ namespace Girassol.Services.Services.Invoices
         {
             db = new ApplicationDbContext();
         }
+        private decimal GetPriceWithIva(decimal price) => price / 117 * 100;
+        private decimal GetIvaValue(decimal Price, decimal priceWithIva) => Price - priceWithIva;
+        private decimal GetTotalPrice(List<Clothing> model)
+        {
+            decimal totaPrice = 0;
 
+            foreach (var item in model)
+            {
+                totaPrice += item.Quantity * item.Price;
+            }
+
+            return totaPrice;
+        }
         public async Task Create(Invoice invoice)
         {
+            DateTime now = DateTime.Now;
 
 
             try
             {
-                invoice.CreatedDate = DateTime.Now;
+                invoice.Price = GetTotalPrice(invoice.Clothings);
+                invoice.CreatedDate = now;
                 invoice.Guid = Guid.NewGuid();
+                invoice.Clothings.ForEach(x =>
+                {
+                    x.Guid = Guid.NewGuid();
+                    x.CreatedDate = now;
+                });
 
-                invoice.PriceWithIva = (invoice.Price / 117 * 100);
-                invoice.IvaValue = invoice.Price - invoice.PriceWithIva;
-                 
+                invoice.PriceWithIva = GetPriceWithIva(invoice.Price);
+                invoice.IvaValue = GetIvaValue(invoice.Price, invoice.PriceWithIva);
+
 
                 await db.AddAsync(invoice);
                 await db.SaveChangesAsync();
@@ -69,35 +88,48 @@ namespace Girassol.Services.Services.Invoices
             }
         }
 
-        public async Task Remove(Invoice invoice)
+        public async Task Remove(Invoice invoice, int? updatedUserID)
         {
             invoice = await Read(invoice.Id);
-            invoice.State = 1;// deleted
-            await Update(invoice);
+            invoice.State = 1;// deleted  
+            await Update(invoice, updatedUserID);
         }
 
-        public async Task<Invoice> Update(Invoice invoice)
+        public async Task<Invoice> Update(Invoice invoice, int? updatedUserID)
         {
+            DateTime now = DateTime.Now;
 
-            foreach (var item in invoice.Clothings)
+            try
             {
-                item.UpdatedDate = DateTime.Now;
+                invoice.UpdatedUserID = updatedUserID;
+                invoice.UpdatedDate = now;
+                invoice.Price = GetTotalPrice(invoice.Clothings);
+                invoice.Clothings.ForEach(x =>
+                {
+                    x.UpdatedDate = now;
+                    x.UpdatedUserID = updatedUserID;
+                });
+                 
+                invoice.PriceWithIva = GetPriceWithIva(invoice.Price);
+                invoice.IvaValue = GetIvaValue(invoice.Price, invoice.PriceWithIva);
+                 
+                db.Update(invoice);
+                await db.SaveChangesAsync();
+
+                return invoice;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
             }
 
-            invoice.UpdatedDate = DateTime.Now;
 
-            invoice.PriceWithIva = (invoice.Price / 117 * 100);
-            invoice.IvaValue = invoice.Price - invoice.PriceWithIva;
-
-            db.Update(invoice);
-            await db.SaveChangesAsync();
-
-            return invoice;
         }
 
 
         #region Dashboard
-        public async Task<int> TotalInvoices() => await db.Invoice.CountAsync(x => x.State == 0 );
+        public async Task<int> TotalInvoices() => await db.Invoice.CountAsync(x => x.State == 0);
         public async Task<int> TotalInvoicesDone() => await db.Invoice.CountAsync(x => x.Status == 1 && x.State == 0);
         public async Task<int> TotalPendent() => await db.Invoice.CountAsync(x => x.Status == 0 && x.State == 0);
         public async Task<int> TotalClient() => await db.Client.CountAsync();
@@ -109,7 +141,7 @@ namespace Girassol.Services.Services.Invoices
 
             if (model.Finalized && model.Processing)
             {
-                return await db.Invoice.Where(x => x.EntryDate.Date >= model.StartdDate.Date && x.EntryDate.Date <= model.EndDate.Date &&  x.State == 0)
+                return await db.Invoice.Where(x => x.EntryDate.Date >= model.StartdDate.Date && x.EntryDate.Date <= model.EndDate.Date && x.State == 0)
                                    .Include(x => x.Client)
                                    .Include(x => x.Clothings)
                                    .OrderByDescending(x => x.Id)

@@ -11,8 +11,8 @@ namespace Girassol.Services.Interfaces.Invoice
     public interface IInvoiceService
     {
         public Task Create(Models.Invoice invoice);
-        public Task Remove(Models.Invoice invoice);
-        public Task<Models.Invoice> Update(Models.Invoice invoice);
+        public Task Remove(Models.Invoice invoice, int? updatedUserID);
+        public Task<Models.Invoice> Update(Models.Invoice invoice, int? updatedUserID);
         public Task<List<Models.Invoice>> Read();
         public Task<Models.Invoice> Read(int id);
 

@@ -48,13 +48,12 @@ namespace Girassol.Web.Controllers
                 {
                     model.Clothings.Add(new Clothing()
                     {
-                        CreatedDate = DateTime.Now.Date,
-                        Guid = Guid.NewGuid(),
+                        Quantity = 1,
                         CreatedUserID = CurrentUserId
                     });
                 }
 
-                model.CreatedUserID = CurrentUserId; 
+                model.CreatedUserID = CurrentUserId;
                 model.EntryDate = DateTime.Now.Date;
                 return View(model);
             }
@@ -74,59 +73,29 @@ namespace Girassol.Web.Controllers
 
             if (model.EntryDate.Date > DateTime.Now.Date || model.EntryDate.Date < DateTime.Now.AddMonths(-1))
             {
-
-                return RedirectToAction("Index", "Home", new
-                {
-
-                    EntryDate = model.EntryDate.Date,
-                    Name = model.Client.Name,
-                    Nuit = model.Client.Nuit,
-                    Quantity = model.Quantity,
-                    Price = model.Price,
-                    Description = model.Description,
-                    MessageStatus = 1,
-                    MessageText = "A data de entrada não pode ser maior que a data actual Ou Inferior a um mês",
-                });
+                TempData["MessageText"] = "A data de entrada não pode ser maior que a data actual Ou Inferior a um mês";
+                return View(model);
             }
-
 
             foreach (var item in model.Clothings)
             {
-                model.Price = model.Price + item.Price;
-            }
-
-
-            if (model.Price <= 0)
-            {
-                return RedirectToAction("Index", "Home", new
+                if (item.Price <= 0)
                 {
-
-                    EntryDate = model.EntryDate.Date,
-                    Name = model.Client.Name,
-                    Nuit = model.Client.Nuit,
-                    Quantity = model.Quantity,
-                    Price = model.Price,
-                    Description = model.Description,
-                    MessageStatus = 1,
-                    MessageText = "Preço Invalido"
-                });
+                    TempData["MessageText"] = $"Preço Invalido para o Item: {item.Description}";
+                    return View(model);
+                }
+                if (item.Quantity <= 0)
+                {
+                    TempData["MessageText"] = $"Quantidade Invalida para o Item: {item.Description}";
+                    return View(model);
+                }
             }
+
             if (string.IsNullOrWhiteSpace(model.Client.Name) || string.IsNullOrWhiteSpace(model.Client.Name))
             {
-                return RedirectToAction("Index", "Home", new
-                {
-
-                    EntryDate = model.EntryDate.Date,
-                    Name = model.Client.Name,
-                    Nuit = model.Client.Nuit,
-                    Quantity = model.Quantity,
-                    Price = model.Price,
-                    Description = model.Description,
-                    MessageStatus = 1,
-                    MessageText = "O nome do Cliente é obrigatório"
-                });
+                TempData["MessageText"] = "O nome do Cliente é obrigatório";
+                return View(model);
             }
-
 
             await _invoiceService.Create(model);
 
@@ -140,7 +109,6 @@ namespace Girassol.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-
             var result = await _invoiceService.Read(int.Parse(id));
             return PartialView("Edit", result);
         }
@@ -150,23 +118,40 @@ namespace Girassol.Web.Controllers
         {
             try
             {
-                CurrentUserId = await _IAccountServices.GetUserId(User.Identity.Name);
-                model.UpdatedUserID = CurrentUserId;
-
-
-                model.Price = 0;
-                foreach (var item in model.Clothings)
+                if (model.EntryDate.Date > DateTime.Now.Date || model.EntryDate.Date < DateTime.Now.AddMonths(-1))
                 {
-                    model.Price = model.Price + item.Price;
-                    item.UpdatedUserID = CurrentUserId;
+                    TempData["MessageText"] = $"Fatura:{model.Code}, A data de entrada não pode ser maior que a data actual Ou Inferior a um mês";
+                    return RedirectToAction(nameof(Read) );
                 }
 
-                var result = await _invoiceService.Update(model);
+                foreach (var item in model.Clothings)
+                {
+                    if (item.Price <= 0)
+                    {
+                        TempData["MessageText"] = $"Fatura:{model.Code}, Preço Invalido para o Item: {item.Description}";
+                        return RedirectToAction(nameof(Read));
+                    }
+                    if (item.Quantity <= 0)
+                    {
+                        TempData["MessageText"] = $"Fatura:{model.Code}, Quantidade Invalida para o Item: {item.Description}";
+                        return RedirectToAction(nameof(Read));
+                    }
+                }
+
+                if (string.IsNullOrWhiteSpace(model.Client.Name) || string.IsNullOrWhiteSpace(model.Client.Name))
+                if (string.IsNullOrWhiteSpace(model.Client.Name) || string.IsNullOrWhiteSpace(model.Client.Name))
+                {
+                    TempData["MessageText"] = $"Fatura:{model.Code}, O nome do Cliente é obrigatório";
+                    return RedirectToAction(nameof(Read));
+                }
+
+                CurrentUserId = await _IAccountServices.GetUserId(User.Identity.Name);
+
+                var result = await _invoiceService.Update(model, CurrentUserId);
                 return RedirectToAction(nameof(Read), new { statusMessage = 1 });
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
 
@@ -200,6 +185,7 @@ namespace Girassol.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Status(Invoice model)
         {
+            CurrentUserId = await _IAccountServices.GetUserId(User.Identity.Name);
 
             var result = await _invoiceService.Read(model.Id);
             if (result.Status == 0)
@@ -211,8 +197,7 @@ namespace Girassol.Web.Controllers
                 result.Status = 0;
             }
 
-            await _invoiceService.Update(result);
-
+            await _invoiceService.Update(result, CurrentUserId); 
             return RedirectToAction(nameof(Read), new { statusMessage = 1 });
         }
 
@@ -237,7 +222,8 @@ namespace Girassol.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(Invoice model)
         {
-            await _invoiceService.Remove(model);
+            CurrentUserId = await _IAccountServices.GetUserId(User.Identity.Name);
+            await _invoiceService.Remove(model, CurrentUserId);
             return RedirectToAction(nameof(Read), new { statusMessage = 1 });
         }
 

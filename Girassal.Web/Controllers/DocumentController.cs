@@ -36,6 +36,9 @@ namespace Girassol.Web.Controllers
 
             try
             {
+                var emission = DateTime.Now.ToString("dd-MM-yyyy");
+                var emissionTime = DateTime.Now.ToString("HH-mm-ss");
+
                 var result = await _invoiceService.Read(model.Id);
                 var CurrentDirectory = Environment.CurrentDirectory;
                 var fileName = CurrentDirectory + @"\wwwroot\templates\fatura_p25_.xlsx";
@@ -44,40 +47,40 @@ namespace Girassol.Web.Controllers
                 {
                     #region up
                     var worksheet = workbook.Worksheets.FirstOrDefault();
-
-                    worksheet.Cell("A8").Value = "Recibo: " + result.Code;
-                    worksheet.Cell("A9").Value = "Data: " + DateTime.Now.ToShortDateString();
-
-                    worksheet.Cell("A11").Value = "Cliente: " + result.Client.Name;
+                    worksheet.Cell("A8").Value = ".";
+                    worksheet.Cell("A9").Value = "Recibo:" + result.Code;
+                    worksheet.Cell("A10").Value = "Data:" + result.EntryDate.ToString("dd-MM-yyyy");
+                    worksheet.Cell("A11").Value = "Cliente:" + result.Client.Name;
 
                     if (!string.IsNullOrEmpty(result.Client.Nuit))
                     {
-
-                        worksheet.Cell("A12").Value = "Nuit: " + result.Client.Nuit;
+                        worksheet.Cell("A12").Value = "cliente Nuit:" + result.Client.Nuit;
                     }
                     if (result.Client.Cell > 0)
                     {
-                        worksheet.Cell("A13").Value = "Tel: " + result.Client.Cell;
+                        worksheet.Cell("A13").Value = "Tel:" + result.Client.Cell;
                     }
 
-
-                    int row = 16;
+                    int row = 14;
+                    worksheet.Cell(row, 1).Value = ".";
+                    row++;
+                    worksheet.Cell(row, 1).Value = "Item-Qtd-Preço Un";
+                    row++;
                     foreach (var item in result.Clothings)
                     {
-                        worksheet.Cell(row, 1).Value = item.Description;
-                        worksheet.Cell(row, 2).Value = item.Price + " MZN";
-
+                        worksheet.Cell(row, 1).Value = item.Description + "-" + item.Quantity + "-" + item.Price + "MZN";
                         row++;
                     }
-
-                    worksheet.Cell(string.Format("A{0}", row + 1)).Value = "Iva: " + result.PriceWithIva + " MZN";
-                    worksheet.Cell(string.Format("A{0}", row + 2)).Value = "Iva: " + result.IvaValue + " MZN";
-                    worksheet.Cell(string.Format("A{0}", row + 3)).Value = "Total: " + result.Price + " MZN";
-
-                    worksheet.Cell(string.Format("A{0}", row + 5)).Value = "TERMOS: Nenhum";
-                    worksheet.Cell(string.Format("A{0}", row + 6)).Value = "===============";
-
-                    worksheet.Cell(string.Format("A{0}", row + 7)).Value = "";
+                    worksheet.Cell(string.Format("A{0}", row + 0)).Value = ".";
+                    worksheet.Cell(string.Format("A{0}", row + 1)).Value = "Preço:" + result.PriceWithIva + "MZN";
+                    worksheet.Cell(string.Format("A{0}", row + 2)).Value = "IVA:" + result.IvaValue + "MZN";
+                    worksheet.Cell(string.Format("A{0}", row + 3)).Value = "Total:" + result.Price + "MZN";
+                    worksheet.Cell(string.Format("A{0}", row + 4)).Value = ".";
+                    worksheet.Cell(string.Format("A{0}", row + 5)).Value = "Software: AgirA ";
+                    worksheet.Cell(string.Format("A{0}", row + 6)).Value = "Emitido: " + emission;
+                    worksheet.Cell(string.Format("A{0}", row + 7)).Value = "Hora:" + emissionTime;
+                    worksheet.Cell(string.Format("A{0}", row + 8)).Value = "========FIM===========";
+                    worksheet.Cell(string.Format("A{0}", row + 9)).Value = ".";
 
 
                     #endregion
@@ -89,55 +92,53 @@ namespace Girassol.Web.Controllers
 
                     row = row + 8;
 
-                    worksheet.Cell(string.Format("A{0}", row + 1)).Value = "Girassol Lavandaria: ";
-                    worksheet.Cell(string.Format("A{0}", row + 2)).Value = "AV. Ahmed Sekou /touré,: ";
-                    worksheet.Cell(string.Format("A{0}", row + 3)).Value = "nº 3479 R/C  Maputo: ";
-                    worksheet.Cell(string.Format("A{0}", row + 4)).Value = "Alto-Maé: ";
-                    worksheet.Cell(string.Format("A{0}", row + 5)).Value = "+ 258 86 085 2222: ";
+                    worksheet.Cell(string.Format("A{0}", row + 1)).Value = "Girassol Lavandaria";
+                    worksheet.Cell(string.Format("A{0}", row + 2)).Value = "AV. Ahmed Sekou/touré,";
+                    worksheet.Cell(string.Format("A{0}", row + 3)).Value = "nº 3479 R/C  Maputo";
+                    worksheet.Cell(string.Format("A{0}", row + 4)).Value = "Alto-Maé";
+                    worksheet.Cell(string.Format("A{0}", row + 5)).Value = "cell:+258860852222";
+                    worksheet.Cell(string.Format("A{0}", row + 6)).Value = "Nuit:401376070";
+                    worksheet.Cell(string.Format("A{0}", row + 7)).Value = ".";
 
                     row = row + 7;
-                     
 
-                    worksheet.Cell(string.Format("A{0}", row + 1)).Value = "Recibo: " + result.Code;
-                    worksheet.Cell(string.Format("A{0}", row + 2)).Value = "Data: " + DateTime.Now.ToShortDateString();
-                    worksheet.Cell(string.Format("A{0}", row + 3)).Value = "Cliente: " + result.Client.Name;
+
+                    worksheet.Cell(string.Format("A{0}", row + 1)).Value = "Recibo:" + result.Code;
+                    worksheet.Cell(string.Format("A{0}", row + 2)).Value = "Data:" + result.EntryDate.ToString("dd-MM-yyyy");
+                    worksheet.Cell(string.Format("A{0}", row + 3)).Value = "Cliente:" + result.Client.Name;
 
                     if (!string.IsNullOrEmpty(result.Client.Nuit))
                     {
 
-                        worksheet.Cell(string.Format("A{0}", row + 4)).Value = "Nuit: " + result.Client.Nuit;
+                        worksheet.Cell(string.Format("A{0}", row + 4)).Value = "Cliente Nuit:" + result.Client.Nuit;
                     }
                     if (result.Client.Cell > 0)
                     {
-                        worksheet.Cell(string.Format("A{0}", row + 5)).Value = "Tel: " + result.Client.Cell;
+                        worksheet.Cell(string.Format("A{0}", row + 5)).Value = "Tel:" + result.Client.Cell;
                     }
 
-                    row = row + 7;
-
-                    worksheet.Cell(row, 1).Value = "Itens";
-                    worksheet.Cell(row, 2).Value = "Preço";
-
-
+                    row = row + 6;
+                    worksheet.Cell(row, 1).Value = ".";
+                    row++;
+                    worksheet.Cell(row, 1).Value = "Item-Qtd-Preço Un";
                     row++;
 
                     foreach (var item in result.Clothings)
                     {
-                        worksheet.Cell(row, 1).Value = item.Description;
-                        worksheet.Cell(row, 2).Value = item.Price + " MZN";
-
+                        worksheet.Cell(row, 1).Value = item.Description + "-" + item.Quantity + "-" + item.Price + "MZN";
                         row++;
                     }
-
-                    worksheet.Cell(string.Format("A{0}", row + 1)).Value = "Iva: " + result.PriceWithIva + " MZN";
-                    worksheet.Cell(string.Format("A{0}", row + 2)).Value = "Iva: " + result.IvaValue + " MZN";
-                    worksheet.Cell(string.Format("A{0}", row + 3)).Value = "Total: " + result.Price + " MZN";
-
-                    worksheet.Cell(string.Format("A{0}", row + 5)).Value = "TERMOS: Nenhum";
-                    worksheet.Cell(string.Format("A{0}", row + 6)).Value = "===============";
-                     
-                    worksheet.Cell(string.Format("A{0}", row + 7)).Value = ".";
-                    worksheet.Cell(string.Format("A{0}", row + 8)).Value = ".";
+                    worksheet.Cell(string.Format("A{0}", row)).Value = ".";
+                    worksheet.Cell(string.Format("A{0}", row + 1)).Value = "Preço:" + result.PriceWithIva + "MZN";
+                    worksheet.Cell(string.Format("A{0}", row + 2)).Value = "IVA:" + result.IvaValue + "MZN";
+                    worksheet.Cell(string.Format("A{0}", row + 3)).Value = "Total:" + result.Price + "MZN";
+                    worksheet.Cell(string.Format("A{0}", row + 4)).Value = ".";
+                    worksheet.Cell(string.Format("A{0}", row + 5)).Value = "Software: AgirA";
+                    worksheet.Cell(string.Format("A{0}", row + 6)).Value = "Emitido:" + emission;
+                    worksheet.Cell(string.Format("A{0}", row + 7)).Value = "Hora:" + emissionTime;
+                    worksheet.Cell(string.Format("A{0}", row + 8)).Value = "========FIM===========";
                     worksheet.Cell(string.Format("A{0}", row + 9)).Value = ".";
+                    worksheet.Cell(string.Format("A{0}", row + 10)).Value = "."; 
                     #endregion
 
                     worksheet.Protect();
