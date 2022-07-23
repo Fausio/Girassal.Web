@@ -54,7 +54,7 @@ namespace Girassol.Web.Controllers
 
                     if (!string.IsNullOrEmpty(result.Client.Nuit))
                     {
-                        worksheet.Cell("A12").Value = "cliente Nuit:" + result.Client.Nuit;
+                        worksheet.Cell("A12").Value = "Nuit:" + result.Client.Nuit;
                     }
                     if (result.Client.Cell > 0)
                     {
@@ -110,7 +110,7 @@ namespace Girassol.Web.Controllers
                     if (!string.IsNullOrEmpty(result.Client.Nuit))
                     {
 
-                        worksheet.Cell(string.Format("A{0}", row + 4)).Value = "Cliente Nuit:" + result.Client.Nuit;
+                        worksheet.Cell(string.Format("A{0}", row + 4)).Value = "Nuit:" + result.Client.Nuit;
                     }
                     if (result.Client.Cell > 0)
                     {
