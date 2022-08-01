@@ -48,7 +48,7 @@ namespace Girassol.Web.Controllers
                     #region up
                     var worksheet = workbook.Worksheets.FirstOrDefault();
                     worksheet.Cell("A8").Value = ".";
-                    worksheet.Cell("A9").Value = "Recibo:" + result.Code;
+                    worksheet.Cell("A9").Value = "Fatura-Recibo:" + result.Code;
                     worksheet.Cell("A10").Value = "Data:" + result.EntryDate.ToString("dd-MM-yyyy");
                     worksheet.Cell("A11").Value = "Cliente:" + result.Client.Name;
 
