@@ -16,7 +16,7 @@ namespace Girassol.Services.Interfaces.Invoice
         public Task<List<Models.Invoice>> Read();
         public Task<Models.Invoice> Read(int id);
 
-
+        public Task updateInvoiceQuantity();
         #region DashBoard 
         public Task<int> TotalInvoices();
         public Task<int> TotalInvoicesDone();

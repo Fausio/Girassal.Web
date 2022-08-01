@@ -172,7 +172,7 @@ namespace Girassol.Web.Controllers
         {
             try
             {
-
+                await _invoiceService.updateInvoiceQuantity();
                 var model = new DownloadInvoiceViewModel()
                 {
                     MessageStatus = MessageStatus
@@ -197,7 +197,7 @@ namespace Girassol.Web.Controllers
             try
             {
                 var result = await _invoiceService.InvoiceWithParamiters(model);
-
+               
                 if (result != null)
                 {
                     try
@@ -238,7 +238,7 @@ namespace Girassol.Web.Controllers
 
 
                                 worksheet.Cell(row, 3).Value = string.Join(", ", x.Clothings.Select(p => p.Description));
-                                worksheet.Cell(row, 4).Value = x.Clothings.Count;
+                                worksheet.Cell(row, 4).Value = x.Quantity;
                                 worksheet.Cell(row, 5).Value = x.EntryDate;
                                 worksheet.Cell(row, 6).Value = x.Price + " MZN";
                                 worksheet.Cell(row, 7).Value = x.PriceWithIva + " MZN";

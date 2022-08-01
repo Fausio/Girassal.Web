@@ -1,7 +1,9 @@
 ﻿using Girassal.Data.Data;
 using Girassol.Models;
 using Girassol.Models.DTO.ViewModels;
+using Girassol.Services.helpers;
 using Girassol.Services.Interfaces.Invoice;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -109,10 +111,10 @@ namespace Girassol.Services.Services.Invoices
                     x.UpdatedDate = now;
                     x.UpdatedUserID = updatedUserID;
                 });
-                 
+
                 invoice.PriceWithIva = GetPriceWithIva(invoice.Price);
                 invoice.IvaValue = GetIvaValue(invoice.Price, invoice.PriceWithIva);
-                 
+
                 db.Update(invoice);
                 await db.SaveChangesAsync();
 
@@ -171,6 +173,15 @@ namespace Girassol.Services.Services.Invoices
                 return null;
             }
 
+        }
+
+        public async Task updateInvoiceQuantity()
+        {
+ 
+
+            var commandText = Querys.updateInvoiceQuantity; 
+            await db.Database.ExecuteSqlRawAsync(commandText);
+             
         }
 
         #endregion
