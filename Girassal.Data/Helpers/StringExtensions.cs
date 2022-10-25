@@ -14,6 +14,12 @@ namespace Girassol.Data.Helpers
         public const string RoleNormal = "Normal";
         public const string RoleAll = "Normal,Admin";
 
+        public enum ModelState
+        {
+            Read = 0 ,
+            Delete = 1
+        }
+
         public static string Sha256(this string input)
         {
             using (var sha = SHA256.Create())
