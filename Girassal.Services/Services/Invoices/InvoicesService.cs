@@ -21,7 +21,7 @@ namespace Girassol.Services.Services.Invoices
         {
             db = new ApplicationDbContext();
         }
-        private decimal GetPriceWithIva(decimal price) => price / 117 * 100;
+        private decimal GetPriceWithIva(decimal price) => price / 116 * 100;
         private decimal GetIvaValue(decimal Price, decimal priceWithIva) => Price - priceWithIva;
         private decimal GetTotalPrice(List<Clothing> model)
         {
@@ -67,7 +67,6 @@ namespace Girassol.Services.Services.Invoices
             }
 
         }
-
         public async Task<List<Invoice>> Read()
         {
             return await db.Invoice.Include(x => x.Client)
@@ -75,7 +74,6 @@ namespace Girassol.Services.Services.Invoices
                                    .OrderByDescending(x => x.Id)
                                    .Where(x => x.State == 0).ToListAsync();
         }
-
         public async Task<Invoice> Read(int id)
         {
             try
@@ -89,14 +87,12 @@ namespace Girassol.Services.Services.Invoices
                 throw ex;
             }
         }
-
         public async Task Remove(Invoice invoice, int? updatedUserID)
         {
             invoice = await Read(invoice.Id);
             invoice.State = 1;// deleted  
             await Update(invoice, updatedUserID);
         }
-
         public async Task<Invoice> Update(Invoice invoice, int? updatedUserID)
         {
             DateTime now = DateTime.Now;
@@ -129,18 +125,13 @@ namespace Girassol.Services.Services.Invoices
 
         }
 
-
         #region Dashboard
         public async Task<int> TotalInvoices() => await db.Invoice.CountAsync(x => x.State == 0);
         public async Task<int> TotalInvoicesDone() => await db.Invoice.CountAsync(x => x.Status == 1 && x.State == 0);
         public async Task<int> TotalPendent() => await db.Invoice.CountAsync(x => x.Status == 0 && x.State == 0);
         public async Task<int> TotalClient() => await db.Client.CountAsync();
-
         public async Task<List<Invoice>> InvoiceWithParamiters(DownloadInvoiceViewModel model)
         {
-
-
-
             if (model.Finalized && model.Processing)
             {
                 return await db.Invoice.Where(x => x.EntryDate.Date >= model.StartdDate.Date && x.EntryDate.Date <= model.EndDate.Date && x.State == 0)
@@ -174,7 +165,6 @@ namespace Girassol.Services.Services.Invoices
             }
 
         }
-
         public async Task updateInvoiceQuantity()
         {
  
@@ -183,7 +173,6 @@ namespace Girassol.Services.Services.Invoices
             await db.Database.ExecuteSqlRawAsync(commandText);
              
         }
-
         #endregion
     }
 }

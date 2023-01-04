@@ -30,7 +30,6 @@ namespace Girassol.Web.Controllers
             this._invoiceService = invoice;
             this._userManager = userManager;
             this._IAccountServices = IAccountServices;
-
         }
 
 
